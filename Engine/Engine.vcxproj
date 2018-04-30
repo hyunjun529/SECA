@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{E987E2D6-7FFF-49C5-BE26-4827A66322C7}</ProjectGuid>
+    <RootNamespace>Engine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)lib\$(Configuration)\</OutDir>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)lib\$(Configuration)\</OutDir>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../external/gl3w;../external/glfw-3.2.1/include;../external/imgui-1.53;../external/linmath.h;../external/spdlog;../external/tinyobjloader;../external/stb;../external/glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../external/gl3w;../external/glfw-3.2.1/include;../external/imgui-1.53;../external/linmath.h;../external/spdlog;../external/tinyobjloader;../external/stb;../external/glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\external\gl3w\GL\gl3w.c" />
+    <ClCompile Include="..\external\imgui-1.53\imgui.cpp" />
+    <ClCompile Include="..\external\imgui-1.53\imgui_demo.cpp" />
+    <ClCompile Include="..\external\imgui-1.53\imgui_draw.cpp" />
+    <ClCompile Include="..\external\imgui-1.53\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="component\Component.cpp" />
+    <ClCompile Include="component\GraphicsComponent.cpp" />
+    <ClCompile Include="component\InputComponent.cpp" />
+    <ClCompile Include="component\InputComponent\CameraInputComponent.cpp" />
+    <ClCompile Include="component\InputComponent\ImguiViewerInputComponent.cpp" />
+    <ClCompile Include="component\PhysicsComponent.cpp" />
+    <ClCompile Include="component\RenderComponenet\OBJRenderComponent.cpp" />
+    <ClCompile Include="component\RenderComponenet\RenderComponent.cpp" />
+    <ClCompile Include="render\Camera.cpp" />
+    <ClCompile Include="render\DrawObject.cpp" />
+    <ClCompile Include="render\OBJLoader.cpp" />
+    <ClCompile Include="render\ShaderUtil.cpp" />
+    <ClCompile Include="render\World.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="util\File.cpp" />
+    <ClCompile Include="util\Log.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\external\gl3w\GL\gl3w.h" />
+    <ClInclude Include="..\external\gl3w\GL\glcorearb.h" />
+    <ClInclude Include="..\external\glm\glm\glm.hpp" />
+    <ClInclude Include="..\external\imgui-1.53\imconfig.h" />
+    <ClInclude Include="..\external\imgui-1.53\imgui.h" />
+    <ClInclude Include="..\external\imgui-1.53\imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="..\external\imgui-1.53\imgui_internal.h" />
+    <ClInclude Include="..\external\imgui-1.53\stb_rect_pack.h" />
+    <ClInclude Include="..\external\imgui-1.53\stb_textedit.h" />
+    <ClInclude Include="..\external\imgui-1.53\stb_truetype.h" />
+    <ClInclude Include="..\external\linmath.h\linmath.h" />
+    <ClInclude Include="..\external\stb\stb_image.h" />
+    <ClInclude Include="..\external\tinyobjloader\tiny_obj_loader.h" />
+    <ClInclude Include="component\Component.h" />
+    <ClInclude Include="component\GraphicsComponent.h" />
+    <ClInclude Include="component\InputComponent.h" />
+    <ClInclude Include="component\InputComponent\CameraInputComponent.h" />
+    <ClInclude Include="component\InputComponent\ImguiViewerInputComponent.h" />
+    <ClInclude Include="component\PhysicsComponent.h" />
+    <ClInclude Include="component\RenderComponenet\OBJRenderComponent.h" />
+    <ClInclude Include="component\RenderComponenet\RenderComponent.h" />
+    <ClInclude Include="render\Camera.h" />
+    <ClInclude Include="render\DrawObject.h" />
+    <ClInclude Include="render\OBJLoader.h" />
+    <ClInclude Include="render\ShaderUtil.h" />
+    <ClInclude Include="render\World.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="util\File.h" />
+    <ClInclude Include="util\Log.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="render\shader\UVonly.frag" />
+    <None Include="render\shader\UVonly.vert" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

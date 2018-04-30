@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="component">
+      <UniqueIdentifier>{ca3feb73-c346-4941-b25e-347788702192}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="component\InputComponent">
+      <UniqueIdentifier>{2e2048f9-d4f8-4751-a84c-1dd9ff3f5b0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="component\RenderComponent">
+      <UniqueIdentifier>{b9645e2a-a4bb-4e56-9d5f-d20b10a22c3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render">
+      <UniqueIdentifier>{df176c2f-9ab7-4148-bbb1-5c1c592df8ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\shader">
+      <UniqueIdentifier>{26b3f17b-6531-4ac4-a123-f539f46fd089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{23016de0-8e46-4aa8-90ac-a5fab69a0f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external">
+      <UniqueIdentifier>{ea39fce2-14b3-48dc-bff6-18d0d4b54bf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external\gl3w">
+      <UniqueIdentifier>{b8a56852-4f6b-4494-869d-d0afdd0865a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external\gl3w\GL">
+      <UniqueIdentifier>{11941f8e-b134-4829-950c-9bb5be36c68c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external\glm">
+      <UniqueIdentifier>{e8a582ba-20a3-4942-93d3-85d357050923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external\glm\glm">
+      <UniqueIdentifier>{30211e38-21ad-44da-8622-ed3cf1588df3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external\imgui">
+      <UniqueIdentifier>{496e7bb3-0027-4558-81a9-ed6ede98fbb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external\linmath.h">
+      <UniqueIdentifier>{87ed645d-357f-4662-abc1-c0cbbb9cd07c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external\stb">
+      <UniqueIdentifier>{b9e2cadb-2524-4faf-9789-b8128743d31c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external\tinyobjloader">
+      <UniqueIdentifier>{dc747d25-eee8-43bc-bf32-95de24bd58be}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="component\Component.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="component\GraphicsComponent.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="component\InputComponent.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="component\PhysicsComponent.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="component\RenderComponenet\RenderComponent.cpp">
+      <Filter>component\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="component\RenderComponenet\OBJRenderComponent.cpp">
+      <Filter>component\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="component\InputComponent\ImguiViewerInputComponent.cpp">
+      <Filter>component\InputComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="component\InputComponent\CameraInputComponent.cpp">
+      <Filter>component\InputComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="render\Camera.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="render\DrawObject.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="render\OBJLoader.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="render\ShaderUtil.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="render\World.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="util\File.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\Log.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\gl3w\GL\gl3w.c">
+      <Filter>_external\gl3w\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui-1.53\imgui.cpp">
+      <Filter>_external\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui-1.53\imgui_demo.cpp">
+      <Filter>_external\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui-1.53\imgui_draw.cpp">
+      <Filter>_external\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui-1.53\imgui_impl_glfw_gl3.cpp">
+      <Filter>_external\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="component\Component.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="component\GraphicsComponent.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="component\InputComponent.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="component\PhysicsComponent.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="component\RenderComponenet\RenderComponent.h">
+      <Filter>component\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="component\RenderComponenet\OBJRenderComponent.h">
+      <Filter>component\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="component\InputComponent\ImguiViewerInputComponent.h">
+      <Filter>component\InputComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="component\InputComponent\CameraInputComponent.h">
+      <Filter>component\InputComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="render\Camera.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\DrawObject.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\OBJLoader.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\ShaderUtil.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\World.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="util\File.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Log.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\gl3w\GL\gl3w.h">
+      <Filter>_external\gl3w\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\gl3w\GL\glcorearb.h">
+      <Filter>_external\gl3w\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\glm\glm\glm.hpp">
+      <Filter>_external\glm\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-1.53\imgui_impl_glfw_gl3.h">
+      <Filter>_external\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-1.53\imgui_internal.h">
+      <Filter>_external\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-1.53\stb_rect_pack.h">
+      <Filter>_external\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-1.53\stb_textedit.h">
+      <Filter>_external\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-1.53\stb_truetype.h">
+      <Filter>_external\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-1.53\imconfig.h">
+      <Filter>_external\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-1.53\imgui.h">
+      <Filter>_external\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\linmath.h\linmath.h">
+      <Filter>_external\linmath.h</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\tinyobjloader\tiny_obj_loader.h">
+      <Filter>_external\tinyobjloader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\stb\stb_image.h">
+      <Filter>_external\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="render\shader\UVonly.vert">
+      <Filter>render\shader</Filter>
+    </None>
+    <None Include="render\shader\UVonly.frag">
+      <Filter>render\shader</Filter>
+    </None>
+  </ItemGroup>
+</Project>

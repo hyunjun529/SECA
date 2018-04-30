@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="scene">
+      <UniqueIdentifier>{88c45b39-6b46-4aef-b529-dc00fed6c780}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="scene\OBJViewerScene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\Scene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="main_OBJViewerScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="scene\OBJViewerScene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\Scene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
