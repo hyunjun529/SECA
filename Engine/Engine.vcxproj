@@ -131,9 +131,8 @@
     <ClCompile Include="..\external\imgui-1.53\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="format\OBJ\OBJLoader.cpp" />
     <ClCompile Include="render\Camera.cpp" />
-    <ClCompile Include="render\DrawObject.cpp" />
+    <ClCompile Include="render\RenderObject.cpp" />
     <ClCompile Include="render\ShaderUtil.cpp" />
-    <ClCompile Include="render\World.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="util\File.cpp" />
     <ClCompile Include="util\Log.cpp" />
@@ -154,9 +153,9 @@
     <ClInclude Include="..\external\tinyobjloader\tiny_obj_loader.h" />
     <ClInclude Include="format\OBJ\OBJLoader.h" />
     <ClInclude Include="render\Camera.h" />
-    <ClInclude Include="render\DrawObject.h" />
+    <ClInclude Include="render\Object.h" />
+    <ClInclude Include="render\RenderObject.h" />
     <ClInclude Include="render\ShaderUtil.h" />
-    <ClInclude Include="render\World.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="util\File.h" />
     <ClInclude Include="util\Log.h" />

@@ -48,13 +48,7 @@
     <ClCompile Include="render\Camera.cpp">
       <Filter>render</Filter>
     </ClCompile>
-    <ClCompile Include="render\DrawObject.cpp">
-      <Filter>render</Filter>
-    </ClCompile>
     <ClCompile Include="render\ShaderUtil.cpp">
-      <Filter>render</Filter>
-    </ClCompile>
-    <ClCompile Include="render\World.cpp">
       <Filter>render</Filter>
     </ClCompile>
     <ClCompile Include="util\File.cpp">
@@ -82,18 +76,15 @@
     <ClCompile Include="format\OBJ\OBJLoader.cpp">
       <Filter>format\OBJ</Filter>
     </ClCompile>
+    <ClCompile Include="render\RenderObject.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="render\Camera.h">
       <Filter>render</Filter>
     </ClInclude>
-    <ClInclude Include="render\DrawObject.h">
-      <Filter>render</Filter>
-    </ClInclude>
     <ClInclude Include="render\ShaderUtil.h">
-      <Filter>render</Filter>
-    </ClInclude>
-    <ClInclude Include="render\World.h">
       <Filter>render</Filter>
     </ClInclude>
     <ClInclude Include="util\File.h">
@@ -144,6 +135,12 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="format\OBJ\OBJLoader.h">
       <Filter>format\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="render\RenderObject.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\Object.h">
+      <Filter>render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

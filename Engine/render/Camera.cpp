@@ -1,12 +1,9 @@
-//
-// Copyright(c) 2016-2017 benikabocha.
-// Distributed under the MIT License (http://opensource.org/licenses/MIT)
-//
-// original GitHub repo : https://github.com/benikabocha/saba
-
 #include "Camera.h"
 
-#include <glm/gtc/matrix_transform.hpp>
+
+// Copyright(c) 2016-2017 benikabocha.
+// Distributed under the MIT License (http://opensource.org/licenses/MIT)
+// original GitHub repo : https://github.com/benikabocha/saba
 
 
 seca::render::Camera::Camera()

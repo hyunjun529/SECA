@@ -1,15 +1,17 @@
-//
-// Copyright(c) 2016-2017 benikabocha.
-// Distributed under the MIT License (http://opensource.org/licenses/MIT)
-//
-// original GitHub repo : https://github.com/benikabocha/saba
-
 #ifndef SECA_RENDER_CAMERA_H_
 #define SECA_RENDER_CAMERA_H_
+
 
 #include <glm/glm.hpp>
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+
+// Copyright(c) 2016-2017 benikabocha.
+// Distributed under the MIT License (http://opensource.org/licenses/MIT)
+// original GitHub repo : https://github.com/benikabocha/saba
+
 
 namespace seca
 {

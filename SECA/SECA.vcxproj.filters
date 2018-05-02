@@ -1,84 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="scene">
-      <UniqueIdentifier>{88c45b39-6b46-4aef-b529-dc00fed6c780}</UniqueIdentifier>
+    <Filter Include="window">
+      <UniqueIdentifier>{b9b3b81a-fd0b-4aa6-b15a-6b408754e287}</UniqueIdentifier>
     </Filter>
-    <Filter Include="component">
-      <UniqueIdentifier>{15218664-17d4-4624-afe2-142f20627372}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="component\RenderComponent">
-      <UniqueIdentifier>{55b5098b-4837-4edd-afc9-e7e36a044d65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="component\InputComponent">
-      <UniqueIdentifier>{1fdddec9-18cd-4fae-95cd-10628b138845}</UniqueIdentifier>
+    <Filter Include="ui">
+      <UniqueIdentifier>{48faa43d-1753-4b9e-866a-e9bd39e64647}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="scene\OBJViewerScene.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\Scene.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Viewer.cpp" />
-    <ClCompile Include="component\Component.cpp">
-      <Filter>component</Filter>
+    <ClCompile Include="window\Window.cpp">
+      <Filter>window</Filter>
     </ClCompile>
-    <ClCompile Include="component\GraphicsComponent.cpp">
-      <Filter>component</Filter>
-    </ClCompile>
-    <ClCompile Include="component\InputComponent.cpp">
-      <Filter>component</Filter>
-    </ClCompile>
-    <ClCompile Include="component\PhysicsComponent.cpp">
-      <Filter>component</Filter>
-    </ClCompile>
-    <ClCompile Include="component\InputComponent\ImguiViewerInputComponent.cpp">
-      <Filter>component\InputComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="component\InputComponent\CameraInputComponent.cpp">
-      <Filter>component\InputComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="component\RenderComponenet\RenderComponent.cpp">
-      <Filter>component\RenderComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="component\RenderComponenet\OBJRenderComponent.cpp">
-      <Filter>component\RenderComponent</Filter>
+    <ClCompile Include="window\WindowCamera.cpp">
+      <Filter>window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="scene\OBJViewerScene.h">
-      <Filter>scene</Filter>
+    <ClInclude Include="window\Window.h">
+      <Filter>window</Filter>
     </ClInclude>
-    <ClInclude Include="scene\Scene.h">
-      <Filter>scene</Filter>
+    <ClInclude Include="ui\StatusUI.h">
+      <Filter>ui</Filter>
     </ClInclude>
-    <ClInclude Include="Viewer.h" />
-    <ClInclude Include="component\Component.h">
-      <Filter>component</Filter>
+    <ClInclude Include="ui\CommonUI.h">
+      <Filter>ui</Filter>
     </ClInclude>
-    <ClInclude Include="component\GraphicsComponent.h">
-      <Filter>component</Filter>
-    </ClInclude>
-    <ClInclude Include="component\InputComponent.h">
-      <Filter>component</Filter>
-    </ClInclude>
-    <ClInclude Include="component\PhysicsComponent.h">
-      <Filter>component</Filter>
-    </ClInclude>
-    <ClInclude Include="component\InputComponent\CameraInputComponent.h">
-      <Filter>component\InputComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="component\InputComponent\ImguiViewerInputComponent.h">
-      <Filter>component\InputComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="component\RenderComponenet\OBJRenderComponent.h">
-      <Filter>component\RenderComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="component\RenderComponenet\RenderComponent.h">
-      <Filter>component\RenderComponent</Filter>
+    <ClInclude Include="window\WindowCamera.h">
+      <Filter>window</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -130,31 +130,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="component\Component.cpp" />
-    <ClCompile Include="component\GraphicsComponent.cpp" />
-    <ClCompile Include="component\InputComponent.cpp" />
-    <ClCompile Include="component\InputComponent\CameraInputComponent.cpp" />
-    <ClCompile Include="component\InputComponent\ImguiViewerInputComponent.cpp" />
-    <ClCompile Include="component\PhysicsComponent.cpp" />
-    <ClCompile Include="component\RenderComponenet\OBJRenderComponent.cpp" />
-    <ClCompile Include="component\RenderComponenet\RenderComponent.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="scene\OBJViewerScene.cpp" />
-    <ClCompile Include="scene\Scene.cpp" />
-    <ClCompile Include="Viewer.cpp" />
+    <ClCompile Include="window\Window.cpp" />
+    <ClCompile Include="window\WindowCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="component\Component.h" />
-    <ClInclude Include="component\GraphicsComponent.h" />
-    <ClInclude Include="component\InputComponent.h" />
-    <ClInclude Include="component\InputComponent\CameraInputComponent.h" />
-    <ClInclude Include="component\InputComponent\ImguiViewerInputComponent.h" />
-    <ClInclude Include="component\PhysicsComponent.h" />
-    <ClInclude Include="component\RenderComponenet\OBJRenderComponent.h" />
-    <ClInclude Include="component\RenderComponenet\RenderComponent.h" />
-    <ClInclude Include="scene\OBJViewerScene.h" />
-    <ClInclude Include="scene\Scene.h" />
-    <ClInclude Include="Viewer.h" />
+    <ClInclude Include="ui\CommonUI.h" />
+    <ClInclude Include="ui\StatusUI.h" />
+    <ClInclude Include="window\Window.h" />
+    <ClInclude Include="window\WindowCamera.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

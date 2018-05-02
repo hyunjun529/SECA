@@ -1,8 +1,10 @@
-#ifndef SECA_RENDER_DRAWOBJECT_H_
-#define SECA_RENDER_DRAWOBJECT_H_
+#ifndef SECA_RENDER_OBJECT_H_
+#define SECA_RENDER_OBJECT_H_
+
 
 #include <map>
 #include <vector>
+
 
 #include <GL/gl3w.h>
 #include <GLFW/glfw3.h>
@@ -14,12 +16,15 @@ namespace seca
 {
 	namespace render
 	{
-		class DrawObject
+		class Object
 		{
 		private:
 			int m_idx = -1;
 
 		public:
+			Object() {}
+			~Object() {}
+
 			GLuint vaoId;
 
 			GLuint vboVId;
