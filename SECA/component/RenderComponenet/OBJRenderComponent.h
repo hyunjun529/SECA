@@ -1,7 +1,7 @@
-#ifndef KATA_COMPONENT_SCENEOBJCOMPONENT_H_
-#define KATA_COMPONENT_SCENEOBJCOMPONENT_H_
+#ifndef SECA_COMPONENT_SCENEOBJCOMPONENT_H_
+#define SECA_COMPONENT_SCENEOBJCOMPONENT_H_
 
-#include "../../util/Log.h"
+#include "util/Log.h"
 
 #include <GL/gl3w.h>
 #include <GLFW/glfw3.h>
@@ -16,9 +16,9 @@
 
 #include "../InputComponent/ImguiViewerInputComponent.h"
 
-#include "../../render/World.h"
-#include "../../render/DrawObject.h"
-#include "../../render/OBJLoader.h"
+#include "render/World.h"
+#include "render/DrawObject.h"
+#include "render/OBJLoader.h"
 
 namespace seca
 {
@@ -334,4 +334,4 @@ namespace seca
 	}
 }
 
-#endif // KATA_COMPONENT_SCENEOBJCOMPONENT_H_
+#endif // SECA_COMPONENT_SCENEOBJCOMPONENT_H_

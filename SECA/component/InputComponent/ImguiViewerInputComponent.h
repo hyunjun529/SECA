@@ -1,5 +1,5 @@
-#ifndef KATA_COMPONENT_IMGUICOMPONENT_H_
-#define KATA_COMPONENT_IMGUICOMPONENT_H_
+#ifndef SECA_COMPONENT_IMGUICOMPONENT_H_
+#define SECA_COMPONENT_IMGUICOMPONENT_H_
 
 #include "../Component.h"
 #include "../InputComponent.h"
@@ -76,4 +76,4 @@ namespace seca
 	}
 }
 
-#endif // KATA_COMPONENT_IMGUICOMPONENT_H_
+#endif // SECA_COMPONENT_IMGUICOMPONENT_H_

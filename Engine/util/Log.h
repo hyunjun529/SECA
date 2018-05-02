@@ -1,5 +1,5 @@
-#ifndef KATA_UTIL_LOG_H_
-#define KATA_UTIL_LOG_H_
+#ifndef SECA_UTIL_LOG_H_
+#define SECA_UTIL_LOG_H_
 
 #include <memory>
 #include <spdlog/spdlog.h>
@@ -70,13 +70,13 @@ namespace seca
 }
 
 // define macro
-#define KATA_CONSOLE_INFO(message, ...)\
+#define SECA_CONSOLE_INFO(message, ...)\
 	seca::util::Info(message, ##__VA_ARGS__)
 
-#define KATA_CONSOLE_WARN(message, ...)\
+#define SECA_CONSOLE_WARN(message, ...)\
 	seca::util::warn(message, ##__VA_ARGS__)
 
-#define KATA_CONSOLE_ERROR(message, ...)\
+#define SECA_CONSOLE_ERROR(message, ...)\
 	seca::util::error(message, ##__VA_ARGS__)
 
-#endif // KATA_UTIL_LOG_H_
+#endif // SECA_UTIL_LOG_H_

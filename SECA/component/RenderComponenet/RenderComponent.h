@@ -1,10 +1,10 @@
-#ifndef KATA_COMPONENT_SCENECOMPONENT_H_
-#define KATA_COMPONENT_SCENECOMPONENT_H_
+#ifndef SECA_COMPONENT_SCENECOMPONENT_H_
+#define SECA_COMPONENT_SCENECOMPONENT_H_
 
 #include <GL/gl3w.h>
 #include <GLFW/glfw3.h>
 
-#include "../../render/World.h"
+#include "render/World.h"
 
 #include "../Component.h"
 #include "../InputComponent.h"
@@ -62,4 +62,4 @@ namespace seca
 	}
 }
 
-#endif // KATA_COMPONENT_SCENECOMPONENT_H_
+#endif // SECA_COMPONENT_SCENECOMPONENT_H_

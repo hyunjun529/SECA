@@ -1,5 +1,5 @@
-#ifndef KATA_SCENE_SCENE_H_
-#define KATA_SCENE_SCENE_H_
+#ifndef SECA_SCENE_SCENE_H_
+#define SECA_SCENE_SCENE_H_
 
 #include <malloc.h>
 
@@ -49,4 +49,4 @@ namespace seca
 	}
 }
 
-#endif // KATA_SCENE_SCENE_H_
+#endif // SECA_SCENE_SCENE_H_

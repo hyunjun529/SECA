@@ -1,5 +1,5 @@
-#ifndef KATA_UTIL_FILE_H_
-#define KATA_UTIL_FILE_H_
+#ifndef SECA_UTIL_FILE_H_
+#define SECA_UTIL_FILE_H_
 
 #include <iostream>
 #include <memory>
@@ -35,4 +35,4 @@ namespace seca
 	}
 }
 
-#endif // KATA_UTIL_FILE_H_
+#endif // SECA_UTIL_FILE_H_

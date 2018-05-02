@@ -1,5 +1,5 @@
-#ifndef KATA_RENDER_SHADERUTIL_H_
-#define KATA_RENDER_SHADERUTIL_H_
+#ifndef SECA_RENDER_SHADERUTIL_H_
+#define SECA_RENDER_SHADERUTIL_H_
 
 #include <GL/gl3w.h>
 #include <GLFW/glfw3.h>
@@ -53,4 +53,4 @@ namespace seca
 }
 
 
-#endif // KATA_RENDER_SHADERUTIL_H_
+#endif // SECA_RENDER_SHADERUTIL_H_

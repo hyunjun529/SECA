@@ -4,8 +4,8 @@
 //
 // original GitHub repo : https://github.com/benikabocha/saba
 
-#ifndef KATA_RENDER_CAMERA_H_
-#define KATA_RENDER_CAMERA_H_
+#ifndef SECA_RENDER_CAMERA_H_
+#define SECA_RENDER_CAMERA_H_
 
 #include <glm/glm.hpp>
 #include <glm/vec3.hpp>
@@ -66,4 +66,4 @@ namespace seca
 		};
 	}
 }
-#endif // KATA_RENDER_CAMERA_H_
+#endif // SECA_RENDER_CAMERA_H_

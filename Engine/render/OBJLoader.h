@@ -1,5 +1,5 @@
-#ifndef KATA_RENDER_OBJLOADER_H_
-#define KATA_RENDER_OBJLOADER_H_
+#ifndef SECA_RENDER_OBJLOADER_H_
+#define SECA_RENDER_OBJLOADER_H_
 
 #include "tiny_obj_loader.h"
 
@@ -41,14 +41,14 @@ namespace seca
 				bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, inputfile.c_str(), base_dir.c_str());
 				if (!err.empty())
 				{
-					KATA_CONSOLE_ERROR(err.c_str());
+					SECA_CONSOLE_ERROR(err.c_str());
 				}
 				if (!ret) assert(true);
-				KATA_CONSOLE_INFO("# of vertices  = {}\n", (int)(attrib.vertices.size()) / 3);
-				KATA_CONSOLE_INFO("# of normals   = {}\n", (int)(attrib.normals.size()) / 3);
-				KATA_CONSOLE_INFO("# of texcoords = {}\n", (int)(attrib.texcoords.size()) / 2);
-				KATA_CONSOLE_INFO("# of materials = {}\n", (int)materials.size());
-				KATA_CONSOLE_INFO("# of shapes    = {}\n", (int)shapes.size());
+				SECA_CONSOLE_INFO("# of vertices  = {}\n", (int)(attrib.vertices.size()) / 3);
+				SECA_CONSOLE_INFO("# of normals   = {}\n", (int)(attrib.normals.size()) / 3);
+				SECA_CONSOLE_INFO("# of texcoords = {}\n", (int)(attrib.texcoords.size()) / 2);
+				SECA_CONSOLE_INFO("# of materials = {}\n", (int)materials.size());
+				SECA_CONSOLE_INFO("# of shapes    = {}\n", (int)shapes.size());
 
 				// load Texture Images from materials
 				for (size_t m = 0; m < materials.size(); m++)
@@ -66,7 +66,7 @@ namespace seca
 
 						if (!t.image)
 						{
-							KATA_CONSOLE_ERROR("OBJLoader : image not found in load texture");
+							SECA_CONSOLE_ERROR("OBJLoader : image not found in load texture");
 						}
 
 						o.textures.insert(std::make_pair(mp->diffuse_texname, t));
@@ -256,4 +256,4 @@ namespace seca
 }
 
 
-#endif // KATA_RENDER_OBJLOADER_H_
+#endif // SECA_RENDER_OBJLOADER_H_

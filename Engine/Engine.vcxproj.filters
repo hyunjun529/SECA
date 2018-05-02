@@ -1,15 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="component">
-      <UniqueIdentifier>{ca3feb73-c346-4941-b25e-347788702192}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="component\InputComponent">
-      <UniqueIdentifier>{2e2048f9-d4f8-4751-a84c-1dd9ff3f5b0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="component\RenderComponent">
-      <UniqueIdentifier>{b9645e2a-a4bb-4e56-9d5f-d20b10a22c3f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="render">
       <UniqueIdentifier>{df176c2f-9ab7-4148-bbb1-5c1c592df8ca}</UniqueIdentifier>
     </Filter>
@@ -48,30 +39,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="component\Component.cpp">
-      <Filter>component</Filter>
-    </ClCompile>
-    <ClCompile Include="component\GraphicsComponent.cpp">
-      <Filter>component</Filter>
-    </ClCompile>
-    <ClCompile Include="component\InputComponent.cpp">
-      <Filter>component</Filter>
-    </ClCompile>
-    <ClCompile Include="component\PhysicsComponent.cpp">
-      <Filter>component</Filter>
-    </ClCompile>
-    <ClCompile Include="component\RenderComponenet\RenderComponent.cpp">
-      <Filter>component\RenderComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="component\RenderComponenet\OBJRenderComponent.cpp">
-      <Filter>component\RenderComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="component\InputComponent\ImguiViewerInputComponent.cpp">
-      <Filter>component\InputComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="component\InputComponent\CameraInputComponent.cpp">
-      <Filter>component\InputComponent</Filter>
-    </ClCompile>
     <ClCompile Include="render\Camera.cpp">
       <Filter>render</Filter>
     </ClCompile>
@@ -111,30 +78,6 @@
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="component\Component.h">
-      <Filter>component</Filter>
-    </ClInclude>
-    <ClInclude Include="component\GraphicsComponent.h">
-      <Filter>component</Filter>
-    </ClInclude>
-    <ClInclude Include="component\InputComponent.h">
-      <Filter>component</Filter>
-    </ClInclude>
-    <ClInclude Include="component\PhysicsComponent.h">
-      <Filter>component</Filter>
-    </ClInclude>
-    <ClInclude Include="component\RenderComponenet\RenderComponent.h">
-      <Filter>component\RenderComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="component\RenderComponenet\OBJRenderComponent.h">
-      <Filter>component\RenderComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="component\InputComponent\ImguiViewerInputComponent.h">
-      <Filter>component\InputComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="component\InputComponent\CameraInputComponent.h">
-      <Filter>component\InputComponent</Filter>
-    </ClInclude>
     <ClInclude Include="render\Camera.h">
       <Filter>render</Filter>
     </ClInclude>

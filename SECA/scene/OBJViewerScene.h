@@ -1,5 +1,5 @@
-#ifndef KATA_SCENE_OBJVIWERSCENE_H_
-#define KATA_SCENE_OBJVIWERSCENE_H_
+#ifndef SECA_SCENE_OBJVIWERSCENE_H_
+#define SECA_SCENE_OBJVIWERSCENE_H_
 
 #include "Scene.h"
 
@@ -58,4 +58,4 @@ namespace seca
 	}
 }
 
-#endif // KATA_SCENE_OBJVIWERSCENE_H_
+#endif // SECA_SCENE_OBJVIWERSCENE_H_

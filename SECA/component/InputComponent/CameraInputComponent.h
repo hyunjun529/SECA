@@ -1,10 +1,10 @@
-#ifndef KATA_COMPONENT_GLCAMERAINPUTCOMPONENT_H_
-#define KATA_COMPONENT_GLCAMERAINPUTCOMPONENT_H_
+#ifndef SECA_COMPONENT_GLCAMERAINPUTCOMPONENT_H_
+#define SECA_COMPONENT_GLCAMERAINPUTCOMPONENT_H_
 
 #include "../InputComponent.h"
 
-#include "../../render/World.h"
-#include "../../render/Camera.h"
+#include "render/World.h"
+#include "render/Camera.h"
 
 #include <imgui.h>
 #include <imgui_impl_glfw_gl3.h>
@@ -233,4 +233,4 @@ namespace seca
 	}
 }
 
-#endif // KATA_COMPONENT_GLCAMERAINPUTCOMPONENT_H_
+#endif // SECA_COMPONENT_GLCAMERAINPUTCOMPONENT_H_

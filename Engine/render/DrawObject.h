@@ -1,5 +1,5 @@
-#ifndef KATA_RENDER_DRAWOBJECT_H_
-#define KATA_RENDER_DRAWOBJECT_H_
+#ifndef SECA_RENDER_DRAWOBJECT_H_
+#define SECA_RENDER_DRAWOBJECT_H_
 
 #include <map>
 #include <vector>
@@ -51,4 +51,4 @@ namespace seca
 }
 
 
-#endif // KATA_RENDER_DRAWOBJECT_H_
+#endif // SECA_RENDER_DRAWOBJECT_H_
