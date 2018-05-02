@@ -10,7 +10,7 @@
 #include <imgui_impl_glfw_gl3.h>
 
 
-namespace kata
+namespace seca
 {
 	namespace component
 	{

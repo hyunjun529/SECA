@@ -10,7 +10,7 @@
 #include <glm/glm.hpp>
 
 
-namespace kata
+namespace seca
 {
 	namespace render
 	{

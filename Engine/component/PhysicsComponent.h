@@ -3,7 +3,7 @@
 
 #include "Component.h"
 
-namespace kata
+namespace seca
 {
 	namespace component
 	{

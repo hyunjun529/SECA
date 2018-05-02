@@ -3,7 +3,7 @@
 #include "scene/OBJViewerScene.h"
 
 
-kata::component::CameraInputComponent *g_camera;
+seca::component::CameraInputComponent *g_camera;
 
 void OnScrollStub(GLFWwindow * window, double offsetx, double offsety)
 {
@@ -31,8 +31,8 @@ int main(int argc, char** argv)
 
 	if (!glfwInit()) assert("failed glfwinit");
 
-	kata::render::World *world
-		= new kata::render::World(singleWindowSizeW, singleWindowSizeH);
+	seca::render::World *world
+		= new seca::render::World(singleWindowSizeW, singleWindowSizeH);
 
 	world->updateWindowTitle("Single WIndow Mode");
 
@@ -55,19 +55,19 @@ int main(int argc, char** argv)
 	ImGui::StyleColorsClassic();
 
 	// init Components
-	kata::component::CameraInputComponent *inputCamera
-		= new kata::component::CameraInputComponent();
+	seca::component::CameraInputComponent *inputCamera
+		= new seca::component::CameraInputComponent();
 
-	kata::component::ImguiInputComponent *inputImgui
-		= new kata::component::ImguiInputComponent;
+	seca::component::ImguiInputComponent *inputImgui
+		= new seca::component::ImguiInputComponent;
 
-	kata::component::PhysicsComponent *physics
-		 = new kata::component::PhysicsComponent();
+	seca::component::PhysicsComponent *physics
+		 = new seca::component::PhysicsComponent();
 
-	kata::component::OBJRenderComponent *renderOBJ
-		= new kata::component::OBJRenderComponent();
+	seca::component::OBJRenderComponent *renderOBJ
+		= new seca::component::OBJRenderComponent();
 
-	kata::scene::OBJViewerScene *scene = new kata::scene::OBJViewerScene(inputCamera, inputImgui, physics, renderOBJ);
+	seca::scene::OBJViewerScene *scene = new seca::scene::OBJViewerScene(inputCamera, inputImgui, physics, renderOBJ);
 
 	scene->setWorld(world);
 	scene->setSceneSize(singleWindowSizeW, singleWindowSizeH);

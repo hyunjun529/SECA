@@ -1,7 +1,7 @@
 #ifndef KATA_COMPONENT_COMPONENT_H_
 #define KATA_COMPONENT_COMPONENT_H_
 
-namespace kata
+namespace seca
 {
 	namespace component
 	{

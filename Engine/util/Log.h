@@ -4,7 +4,7 @@
 #include <memory>
 #include <spdlog/spdlog.h>
 
-namespace kata
+namespace seca
 {
 	namespace util{
 		class Log
@@ -71,12 +71,12 @@ namespace kata
 
 // define macro
 #define KATA_CONSOLE_INFO(message, ...)\
-	kata::util::Info(message, ##__VA_ARGS__)
+	seca::util::Info(message, ##__VA_ARGS__)
 
 #define KATA_CONSOLE_WARN(message, ...)\
-	kata::util::warn(message, ##__VA_ARGS__)
+	seca::util::warn(message, ##__VA_ARGS__)
 
 #define KATA_CONSOLE_ERROR(message, ...)\
-	kata::util::error(message, ##__VA_ARGS__)
+	seca::util::error(message, ##__VA_ARGS__)
 
 #endif // KATA_UTIL_LOG_H_

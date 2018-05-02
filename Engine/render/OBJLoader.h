@@ -8,7 +8,7 @@
 #include "DrawObject.h"
 
 
-namespace kata
+namespace seca
 {
 	namespace render
 	{

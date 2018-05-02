@@ -7,7 +7,7 @@
 #include <mutex>
 
 
-namespace kata
+namespace seca
 {
 	namespace util{
 		class File

@@ -9,7 +9,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-kata::render::Camera::Camera()
+seca::render::Camera::Camera()
 	: m_target(0)
 	, m_eye(0, 0, 1)
 	, m_up(0, 1, 0)
@@ -22,7 +22,7 @@ kata::render::Camera::Camera()
 {
 }
 
-void kata::render::Camera::Initialize(const glm::vec3 & center, float radius)
+void seca::render::Camera::Initialize(const glm::vec3 & center, float radius)
 {
 	m_target = center;
 	m_eye = center + glm::vec3(0.5f, 0.5f, 1) * radius * 5.0f;
@@ -35,7 +35,7 @@ void kata::render::Camera::Initialize(const glm::vec3 & center, float radius)
 	UpdateMatrix();
 }
 
-void kata::render::Camera::Initialize(const glm::vec3 & center, glm::vec3 & eye, float nearClip, float farClip, float radius)
+void seca::render::Camera::Initialize(const glm::vec3 & center, glm::vec3 & eye, float nearClip, float farClip, float radius)
 {
 	m_target = center;
 	m_eye = eye;
@@ -72,7 +72,7 @@ namespace
 	}
 }
 
-void kata::render::Camera::Orbit(float x, float y)
+void seca::render::Camera::Orbit(float x, float y)
 {
 	auto toEye = m_eye - m_target;
 	auto toEyeLen = glm::length(toEye);
@@ -88,7 +88,7 @@ void kata::render::Camera::Orbit(float x, float y)
 	m_eye = m_target + newToEye;
 }
 
-void kata::render::Camera::Dolly(float z)
+void seca::render::Camera::Dolly(float z)
 {
 	const float minLen = 0.01f * m_radius;
 	const float maxLen = 50.0f * m_radius;
@@ -108,7 +108,7 @@ void kata::render::Camera::Dolly(float z)
 	}
 }
 
-void kata::render::Camera::Pan(float x, float y)
+void seca::render::Camera::Pan(float x, float y)
 {
 	float len = glm::length(m_target - m_eye);
 	float ay = std::tan(m_fovYRad) * len;
@@ -123,14 +123,14 @@ void kata::render::Camera::Pan(float x, float y)
 	m_eye += dx * xAxis + dy * yAxis;
 }
 
-void kata::render::Camera::LookAt(const glm::vec3 & center, const glm::vec3 & eye, const glm::vec3 & up)
+void seca::render::Camera::LookAt(const glm::vec3 & center, const glm::vec3 & eye, const glm::vec3 & up)
 {
 	m_target = center;
 	m_eye = eye;
 	m_up = up;
 }
 
-void kata::render::Camera::UpdateMatrix()
+void seca::render::Camera::UpdateMatrix()
 {
 	m_viewMatrix = glm::lookAtRH(m_eye, m_target, m_up);
 
@@ -147,69 +147,69 @@ void kata::render::Camera::UpdateMatrix()
 	);
 }
 
-const glm::mat4& kata::render::Camera::GetViewMatrix() const
+const glm::mat4& seca::render::Camera::GetViewMatrix() const
 {
 	return m_viewMatrix;
 }
 
-void kata::render::Camera::SetFovY(float fovY)
+void seca::render::Camera::SetFovY(float fovY)
 {
 	m_fovYRad = fovY;
 }
 
-void kata::render::Camera::SetSize(float w, float h)
+void seca::render::Camera::SetSize(float w, float h)
 {
 	m_width = w;
 	m_height = h;
 }
 
-void kata::render::Camera::SetClip(float nearClip, float farClip)
+void seca::render::Camera::SetClip(float nearClip, float farClip)
 {
 	m_nearClip = nearClip;
 	m_farClip = farClip;
 }
 
-const glm::mat4& kata::render::Camera::GetProjectionMatrix() const
+const glm::mat4& seca::render::Camera::GetProjectionMatrix() const
 {
 	return m_projectionMatrix;
 }
 
-glm::vec3 kata::render::Camera::GetEyePostion() const
+glm::vec3 seca::render::Camera::GetEyePostion() const
 {
 	return m_eye;
 }
 
-glm::vec3 kata::render::Camera::GetUp() const
+glm::vec3 seca::render::Camera::GetUp() const
 {
 	return glm::normalize(m_up);
 }
 
-glm::vec3 kata::render::Camera::GetForward() const
+glm::vec3 seca::render::Camera::GetForward() const
 {
 	return glm::normalize(m_target - m_eye);
 }
 
-float kata::render::Camera::GetFovY() const
+float seca::render::Camera::GetFovY() const
 {
 	return m_fovYRad;
 }
 
-float kata::render::Camera::GetNearClip() const
+float seca::render::Camera::GetNearClip() const
 {
 	return m_nearClip;
 }
 
-float kata::render::Camera::GetFarClip() const
+float seca::render::Camera::GetFarClip() const
 {
 	return m_farClip;
 }
 
-float kata::render::Camera::GetWidth() const
+float seca::render::Camera::GetWidth() const
 {
 	return m_width;
 }
 
-float kata::render::Camera::GetHeight() const
+float seca::render::Camera::GetHeight() const
 {
 	return m_height;
 }

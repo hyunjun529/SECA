@@ -14,7 +14,7 @@
 #include "../InputComponent/ImguiViewerInputComponent.h"
 
 
-namespace kata
+namespace seca
 {
 	namespace component
 	{

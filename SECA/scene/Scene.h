@@ -6,7 +6,7 @@
 #include "render/World.h"
 
 
-namespace kata
+namespace seca
 {
 	namespace scene
 	{

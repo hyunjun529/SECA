@@ -20,7 +20,7 @@
 #include "../../render/DrawObject.h"
 #include "../../render/OBJLoader.h"
 
-namespace kata
+namespace seca
 {
 	namespace component
 	{

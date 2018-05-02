@@ -9,7 +9,7 @@
 #include "component/RenderComponenet/OBJRenderComponent.h"
 
 
-namespace kata
+namespace seca
 {
 	namespace scene
 	{

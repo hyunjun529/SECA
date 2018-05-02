@@ -6,7 +6,7 @@
 
 #include "ShaderUtil.h"
 
-namespace kata
+namespace seca
 {
 	namespace render
 	{
