@@ -18,7 +18,8 @@
 
 #include "render/World.h"
 #include "render/DrawObject.h"
-#include "render/OBJLoader.h"
+
+#include "format/OBJ/OBJLoader.h"
 
 namespace seca
 {
@@ -244,7 +245,7 @@ namespace seca
 
 			void load(const char *_file, const char *_path)
 			{
-				render::OBJLoader objLoader;
+				format::OBJLoader objLoader;
 				m_drawObjects.push_back(objLoader.loadOBJ(_file, _path));
 
 				CreateVBO();

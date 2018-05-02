@@ -37,15 +37,18 @@
     <Filter Include="_external\tinyobjloader">
       <UniqueIdentifier>{dc747d25-eee8-43bc-bf32-95de24bd58be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="format">
+      <UniqueIdentifier>{861d7806-b9b4-43e7-ad94-2f967dd2aed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="format\OBJ">
+      <UniqueIdentifier>{552fae81-cb2c-46a0-9b76-b459f1393ee2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="render\Camera.cpp">
       <Filter>render</Filter>
     </ClCompile>
     <ClCompile Include="render\DrawObject.cpp">
-      <Filter>render</Filter>
-    </ClCompile>
-    <ClCompile Include="render\OBJLoader.cpp">
       <Filter>render</Filter>
     </ClCompile>
     <ClCompile Include="render\ShaderUtil.cpp">
@@ -76,15 +79,15 @@
       <Filter>_external\imgui</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="format\OBJ\OBJLoader.cpp">
+      <Filter>format\OBJ</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="render\Camera.h">
       <Filter>render</Filter>
     </ClInclude>
     <ClInclude Include="render\DrawObject.h">
-      <Filter>render</Filter>
-    </ClInclude>
-    <ClInclude Include="render\OBJLoader.h">
       <Filter>render</Filter>
     </ClInclude>
     <ClInclude Include="render\ShaderUtil.h">
@@ -139,6 +142,9 @@
       <Filter>_external\stb</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="format\OBJ\OBJLoader.h">
+      <Filter>format\OBJ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="render\shader\UVonly.vert">
