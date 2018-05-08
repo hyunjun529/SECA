@@ -34,7 +34,7 @@ seca::viewer::Window::Window()
 	render->setup(m_window);
 	
 	// need to move
-	render->loadOBJObject("capsule.obj", "..//resource//capsule//");
+	render->loadOBJObject("kizunaai.obj", "..//resource//kizunaai//");
 	//if (m_inputImgui->funcLoad)
 	//{
 	//	switch (m_inputImgui->param_load_obj)
