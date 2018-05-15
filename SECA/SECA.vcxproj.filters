@@ -7,6 +7,9 @@
     <Filter Include="ui">
       <UniqueIdentifier>{48faa43d-1753-4b9e-866a-e9bd39e64647}</UniqueIdentifier>
     </Filter>
+    <Filter Include="visualization">
+      <UniqueIdentifier>{262ad793-d61e-4587-be72-e2c73b886fa3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -15,6 +18,12 @@
     </ClCompile>
     <ClCompile Include="window\WindowCamera.cpp">
       <Filter>window</Filter>
+    </ClCompile>
+    <ClCompile Include="visualization\Grid.cpp">
+      <Filter>visualization</Filter>
+    </ClCompile>
+    <ClCompile Include="visualization\Axis.cpp">
+      <Filter>visualization</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -29,6 +38,12 @@
     </ClInclude>
     <ClInclude Include="window\WindowCamera.h">
       <Filter>window</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization\Grid.h">
+      <Filter>visualization</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization\Axis.h">
+      <Filter>visualization</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

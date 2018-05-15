@@ -50,7 +50,9 @@ namespace seca
 				GLuint idxBegin;
 				GLuint cntVertex;
 			} SubMesh;
-			std::vector<SubMesh> subMeshs;
+			std::vector<SubMesh> subMeshes;
+
+			GLenum drawHow = GL_TRIANGLES;
 		};
 	}
 }

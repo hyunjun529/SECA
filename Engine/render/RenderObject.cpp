@@ -43,6 +43,13 @@ void seca::render::RenderObject::loadOBJObject(const char *_file, const char *_p
 	CreateVBO();
 }
 
+void seca::render::RenderObject::loadObject(render::Object object)
+{
+	m_objects.push_back(object);
+
+	CreateVBO();
+}
+
 void seca::render::RenderObject::render()
 {
 	render(glm::mat4x4(1.0));
@@ -62,17 +69,25 @@ void seca::render::RenderObject::render(const glm::mat4 &MVP)
 
 		glBindVertexArray(o->vaoId);
 
-		for (int i = 0; i < o->subMeshs.size(); i++)
+		if (!o->subMeshes.empty())
 		{
-			render::Object::SubMesh *sm = &o->subMeshs[i];
+			for (int i = 0; i < o->subMeshes.size(); i++)
+			{
+				render::Object::SubMesh *sm = &o->subMeshes[i];
 
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, sm->textureId);
-			glUniform1i(TextureId, 0);
 
-			glDrawArrays(GL_TRIANGLES, sm->idxBegin, sm->cntVertex);
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, sm->textureId);
+				glUniform1i(TextureId, 0);
 
-			glBindTexture(GL_TEXTURE_2D, 0);
+				glDrawArrays(o->drawHow, sm->idxBegin, sm->cntVertex);
+
+				glBindTexture(GL_TEXTURE_2D, 0);
+			}
+		}
+		else
+		{
+			glDrawArrays(o->drawHow, 0, o->bufferPosition.size());
 		}
 	}
 }
@@ -89,9 +104,9 @@ void seca::render::RenderObject::CreateVBO(void)
 		if (o->vaoId != 0) continue;
 
 		// texture
-		for (int i = 0; i < o->subMeshs.size(); i++)
+		for (int i = 0; i < o->subMeshes.size(); i++)
 		{
-			render::Object::SubMesh *sm = &o->subMeshs[i];
+			render::Object::SubMesh *sm = &o->subMeshes[i];
 
 			if (sm->textureId == 0 && sm->texname != "")
 			{
@@ -129,11 +144,14 @@ void seca::render::RenderObject::CreateVBO(void)
 		glEnableVertexAttribArray(0);
 
 		// UV
-		glGenBuffers(1, &o->vboUvId);
-		glBindBuffer(GL_ARRAY_BUFFER, o->vboUvId);
-		glBufferData(GL_ARRAY_BUFFER, o->bufferUV.size() * sizeof(glm::vec2), &o->bufferUV[0], GL_STATIC_DRAW);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
-		glEnableVertexAttribArray(1);
+		if(!o->bufferUV.empty())
+		{ 
+			glGenBuffers(1, &o->vboUvId);
+			glBindBuffer(GL_ARRAY_BUFFER, o->vboUvId);
+			glBufferData(GL_ARRAY_BUFFER, o->bufferUV.size() * sizeof(glm::vec2), &o->bufferUV[0], GL_STATIC_DRAW);
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+			glEnableVertexAttribArray(1);
+		}
 
 		// Normal
 

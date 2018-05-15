@@ -1,6 +1,10 @@
 #include "Window.h"
 
 
+#include "../visualization/Axis.h"
+#include "../visualization/Grid.h"
+
+
 seca::viewer::Window::Window()
 {
 	if (!glfwInit()) assert("failed glfwinit");
@@ -34,7 +38,15 @@ seca::viewer::Window::Window()
 	render->setup(m_window);
 	
 	// need to move
-	render->loadOBJObject("kizunaai.obj", "..//resource//kizunaai//");
+	visualization::Axis axis;
+	axis.createAxisObject();
+	render->loadObject(axis.getAxisObject());
+
+	visualization::Grid grid;
+	grid.createGridObject();
+	render->loadObject(grid.getGridObject());
+
+	//render->loadOBJObject("kizunaai.obj", "..//resource//kizunaai//");
 	//if (m_inputImgui->funcLoad)
 	//{
 	//	switch (m_inputImgui->param_load_obj)

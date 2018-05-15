@@ -21,11 +21,11 @@ seca::render::Object seca::format::OBJLoader::loadOBJ(const char *_file, const c
 		SECA_CONSOLE_ERROR(err.c_str());
 	}
 	if (!ret) assert(true);
-	SECA_CONSOLE_INFO("# of vertices  = {}\n", (int)(attrib.vertices.size()) / 3);
-	SECA_CONSOLE_INFO("# of normals   = {}\n", (int)(attrib.normals.size()) / 3);
-	SECA_CONSOLE_INFO("# of texcoords = {}\n", (int)(attrib.texcoords.size()) / 2);
-	SECA_CONSOLE_INFO("# of materials = {}\n", (int)materials.size());
-	SECA_CONSOLE_INFO("# of shapes    = {}\n", (int)shapes.size());
+	SECA_CONSOLE_INFO("# of vertices  = {}", (int)(attrib.vertices.size()) / 3);
+	SECA_CONSOLE_INFO("# of normals   = {}", (int)(attrib.normals.size()) / 3);
+	SECA_CONSOLE_INFO("# of texcoords = {}", (int)(attrib.texcoords.size()) / 2);
+	SECA_CONSOLE_INFO("# of materials = {}", (int)materials.size());
+	SECA_CONSOLE_INFO("# of shapes    = {}", (int)shapes.size());
 
 	// load Texture Images from materials
 	for (size_t m = 0; m < materials.size(); m++)
@@ -184,7 +184,7 @@ seca::render::Object seca::format::OBJLoader::loadOBJ(const char *_file, const c
 			}
 			else
 			{
-				o.subMeshs.push_back(sm);
+				o.subMeshes.push_back(sm);
 
 				if (materials.size() > 0)
 				{
@@ -196,7 +196,7 @@ seca::render::Object seca::format::OBJLoader::loadOBJ(const char *_file, const c
 				current_material_id = material_id;
 			}
 		}
-		o.subMeshs.push_back(sm);
+		o.subMeshes.push_back(sm);
 	}
 
 	return o;
