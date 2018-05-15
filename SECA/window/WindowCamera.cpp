@@ -122,11 +122,11 @@ void seca::viewer::WindowCamera::OnMouseButton(GLFWwindow * m_window, int button
 	}
 	else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
 	{
-		m_cameraMode = CameraMode::Dolly;
+		m_cameraMode = CameraMode::Pan;
 	}
 	else if (button == GLFW_MOUSE_BUTTON_MIDDLE && action == GLFW_PRESS)
 	{
-		m_cameraMode = CameraMode::Pan;
+		m_cameraMode = CameraMode::Orbit;
 	}
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT ||
