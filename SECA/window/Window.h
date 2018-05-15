@@ -91,6 +91,7 @@ namespace seca
 
 			static void OnScrollStub(GLFWwindow * window, double offsetx, double offsety);
 			static void OnMouseButtonStub(GLFWwindow * window, int button, int action, int mods);
+			static void SetDropStub(GLFWwindow * window, int count, const char** paths);
 		};
 	}
 }
