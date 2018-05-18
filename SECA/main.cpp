@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 
 	seca::viewer::Window *window = new seca::viewer::Window();
 	
-	window->run();
+	window->Run();
 
 	delete window;
 

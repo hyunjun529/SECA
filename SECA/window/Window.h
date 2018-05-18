@@ -20,9 +20,6 @@
 #include "render/RenderObject.h"
 
 
-#include "WindowCamera.h"
-
-
 #include "../ui/CommonUI.h"
 #include "../ui/StatusUI.h"
 
@@ -35,7 +32,9 @@ namespace seca
 		{
 		public:
 			char windowTitle[64] = "SECA";
+
 			ImVec4 param_clearColor = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
 
 		private:
 			const int m_windowSizeW = 1280;
@@ -43,55 +42,23 @@ namespace seca
 
 			GLFWwindow *m_window;
 
-			WindowCamera *m_windowCamera;
-
 			std::list<ui::CommonUI*> m_uis;
 
 			render::RenderObject *render;
+			render::Camera *camera;
 
 
 		public:
 			Window();
 			~Window();
 
-			void run()
-			{
-				// set UI
-				ui::StatusUI *uiStatus = new ui::StatusUI();
-				uiStatus->param_clearColor = &param_clearColor;
-				m_uis.push_back(uiStatus);
+			void Run();
 
-				// render
-				while (!glfwWindowShouldClose(m_window))
-				{
-					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-					glViewport(0, 0, m_windowSizeW, m_windowSizeH);
-					glClearColor(
-						param_clearColor.x,
-						param_clearColor.y,
-						param_clearColor.z,
-						param_clearColor.w
-					);
-
-					// Camera
-					m_windowCamera->update();
-					
-					// render
-					render->render(m_windowCamera->getMVP());
-
-					// UI
-					ImGui_ImplGlfwGL3_NewFrame();
-					for (ui::CommonUI *ui : m_uis) { ui->render(); }
-					ImGui::Render();
-
-					glfwSwapBuffers(m_window);
-					glfwPollEvents();
-				}
-			}
-
-			static void OnScrollStub(GLFWwindow * window, double offsetx, double offsety);
-			static void OnMouseButtonStub(GLFWwindow * window, int button, int action, int mods);
-			static void SetDropStub(GLFWwindow * window, int count, const char** paths);
+			static void OnMouseButtonCallback(GLFWwindow * window, int button, int action, int mods);
+			static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
+			static void OnScrollCallback(GLFWwindow * window, double offsetx, double offsety);
+			static void WindowSizeCallback(GLFWwindow* window, int width, int height);
+			static void SetDropCallback(GLFWwindow * window, int count, const char** paths);
 		};
 	}
 }

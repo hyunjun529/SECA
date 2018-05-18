@@ -8,6 +8,13 @@
 #include "../visualization/Grid.h"
 
 
+seca::viewer::Window::~Window()
+{
+	ImGui_ImplGlfwGL3_Shutdown();
+	glfwDestroyWindow(m_window);
+	glfwTerminate();
+}
+
 seca::viewer::Window::Window()
 {
 	if (!glfwInit()) assert("failed glfwinit");
@@ -30,18 +37,25 @@ seca::viewer::Window::Window()
 	ImGui_ImplGlfwGL3_Init(m_window, true);
 	ImGui::StyleColorsClassic();
 
-	m_windowCamera = new WindowCamera();
-	m_windowCamera->setWindow(m_window);
+	camera = new render::Camera();
+	camera->SetPanScale(0.01f);
+	camera->SetDollyStartPosition(-1.5f);
+	camera->SetDollyScale(0.1f);
+	camera->SetTrackballScale(0.1f);
+	camera->SetCenterOfRotation(glm::vec3(0, 0, 0));
+	camera->Resize(m_windowSizeW, m_windowSizeH);
 
 	glfwSetWindowUserPointer(m_window, this);
-	glfwSetMouseButtonCallback(m_window, OnMouseButtonStub);
-	glfwSetScrollCallback(m_window, OnScrollStub);
-	glfwSetDropCallback(m_window, SetDropStub);
+	glfwSetMouseButtonCallback(m_window, OnMouseButtonCallback);
+	glfwSetCursorPosCallback(m_window, CursorPositionCallback);
+	glfwSetScrollCallback(m_window, OnScrollCallback);
+	glfwSetWindowSizeCallback(m_window, WindowSizeCallback);
+	glfwSetDropCallback(m_window, SetDropCallback);
 
 	render = new render::RenderObject();
 	render->setup(m_window);
 	
-	// need to move
+	// create default object
 	visualization::Axis axis;
 	axis.createAxisObject();
 	render->loadObject(axis.getAxisObject());
@@ -51,25 +65,42 @@ seca::viewer::Window::Window()
 	render->loadObject(grid.getGridObject());
 }
 
-seca::viewer::Window::~Window()
+void seca::viewer::Window::Run()
 {
-	ImGui_ImplGlfwGL3_Shutdown();
-	glfwDestroyWindow(m_window);
-	glfwTerminate();
+	// set UI
+	ui::StatusUI *uiStatus = new ui::StatusUI();
+	uiStatus->param_clearColor = &param_clearColor;
+	m_uis.push_back(uiStatus);
+
+	// render
+	while (!glfwWindowShouldClose(m_window))
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glViewport(0, 0, m_windowSizeW, m_windowSizeH);
+		glClearColor(
+			param_clearColor.x,
+			param_clearColor.y,
+			param_clearColor.z,
+			param_clearColor.w
+		);
+
+		// Camera
+		camera->ContinueRotation();
+
+		// render
+		render->render(camera->GetWorldViewMatrix());
+
+		// UI
+		ImGui_ImplGlfwGL3_NewFrame();
+		for (ui::CommonUI *ui : m_uis) { ui->render(); }
+		ImGui::Render();
+
+		glfwSwapBuffers(m_window);
+		glfwPollEvents();
+	}
 }
 
-void seca::viewer::Window::OnScrollStub(GLFWwindow * window, double offsetx, double offsety)
-{
-	Window *srcWindow = (Window*)glfwGetWindowUserPointer(window);
-
-	ImGui_ImplGlfwGL3_ScrollCallback(window, offsetx, offsety);
-
-	glfwGetWindowUserPointer(window);
-
-	srcWindow->m_windowCamera->OnScroll(offsetx, offsety);
-}
-
-void seca::viewer::Window::OnMouseButtonStub(GLFWwindow * window, int button, int action, int mods)
+void seca::viewer::Window::OnMouseButtonCallback(GLFWwindow * window, int button, int action, int mods)
 {
 	Window *srcWindow = (Window*)glfwGetWindowUserPointer(window);
 
@@ -77,10 +108,64 @@ void seca::viewer::Window::OnMouseButtonStub(GLFWwindow * window, int button, in
 
 	glfwGetWindowUserPointer(window);
 
-	srcWindow->m_windowCamera->OnMouseButton(window, button, action, mods);
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+	{
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		srcWindow->camera->StartMouseRotation(xpos, ypos);
+	}
+	else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE)
+	{
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+		srcWindow->camera->EndMouseRotation(xpos, ypos);
+	}
+
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	{
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		srcWindow->camera->StartMousePan(xpos, ypos);
+	}
+	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
+	{
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		srcWindow->camera->EndMousePan(xpos, ypos);
+	}
 }
 
-void seca::viewer::Window::SetDropStub(GLFWwindow * window, int count, const char** paths)
+void seca::viewer::Window::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos)
+{
+	Window *srcWindow = (Window*)glfwGetWindowUserPointer(window);
+
+	srcWindow->camera->ProcessMouseMotion(xpos, ypos);
+}
+
+void seca::viewer::Window::OnScrollCallback(GLFWwindow * window, double offsetx, double offsety)
+{
+	Window *srcWindow = (Window*)glfwGetWindowUserPointer(window);
+
+	ImGui_ImplGlfwGL3_ScrollCallback(window, offsetx, offsety);
+
+	glfwGetWindowUserPointer(window);
+
+	srcWindow->camera->UpdateDolly(offsety);
+}
+
+void seca::viewer::Window::WindowSizeCallback(GLFWwindow* window, int width, int height)
+{
+	Window *srcWindow = (Window*)glfwGetWindowUserPointer(window);
+
+	SECA_CONSOLE_INFO("resize window : {} x {}", width, height);
+
+	srcWindow->camera->Resize(width, height);
+}
+
+void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const char** paths)
 {
 	Window *srcWindow = (Window*)glfwGetWindowUserPointer(window);
 
@@ -101,30 +186,3 @@ void seca::viewer::Window::SetDropStub(GLFWwindow * window, int count, const cha
 
 	srcWindow->render->loadOBJObject(file.c_str(), path.c_str());
 }
-
-//render->loadOBJObject("kizunaai.obj", "..//resource//kizunaai//");
-//if (m_inputImgui->funcLoad)
-//{
-//	switch (m_inputImgui->param_load_obj)
-//	{
-//	case 1:
-//		load("cube.obj", "..//resource//cube//");
-//		break;
-//	case 2:
-//		load("bunny.obj", "..//resource//bunny//");
-//		break;
-//	case 3:
-//		load("teapot.obj", "..//resource//teapot//");
-//		break;
-//	case 4:
-//		load("capsule.obj", "..//resource//capsule//");
-//		break;
-//	case 5:
-//		load("white_oak.obj", "..//resource//white_oak//");
-//		break;
-//	case 6:
-//		load("kizunaai.obj", "..//resource//kizunaai//");
-//		break;
-//	}
-//	m_inputImgui->funcLoad = false;
-//}

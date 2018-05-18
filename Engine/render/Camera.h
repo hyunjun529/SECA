@@ -3,15 +3,8 @@
 
 
 #include <glm/glm.hpp>
-#include <glm/vec3.hpp>
-#include <glm/mat4x4.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-
-// Copyright(c) 2016-2017 benikabocha.
-// Distributed under the MIT License (http://opensource.org/licenses/MIT)
-// original GitHub repo : https://github.com/benikabocha/saba
-
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 namespace seca
 {
@@ -19,52 +12,65 @@ namespace seca
 	{
 		class Camera
 		{
+		private:
+			int width_, height_;
+
+			int x_, y_;
+			int dx_, dy_;
+
+			// Variable used to determine if the manipulator is presently tracking the mouse
+			bool is_trackball_active_;
+			bool is_dolly_active_;
+			bool is_pan_active_;
+
+			glm::quat rot_;
+			glm::quat rot_incr_;
+			glm::vec3 rot_center;
+			glm::vec3 pan_;
+			glm::vec3 dolly_;
+
+			glm::mat4 projection_;
+
+			float trackball_scale_; //trackball scale
+			float dolly_scale_;  //dolly scale
+			float pan_scale_;   //pan scale
+
+
 		public:
 			Camera();
 
-			void Initialize(const glm::vec3& center, float radius);
-			void Initialize(const glm::vec3& center, glm::vec3& eye, float nearClip, float farClip, float radius);
+			void StartMouseRotation(int x, int y);
+			void StartMouseDolly(int x, int y);
+			void StartMousePan(int x, int y);
+			void EndMouseRotation(int x, int y);
+			void EndMouseDolly(int x, int y);
+			void EndMousePan(int x, int y);
+			void ProcessMouseMotion(int x, int y);
 
-			void Orbit(float x, float y);
-			void Dolly(float z);
-			void Pan(float x, float y);
+			void Update();
+			void ContinueRotation();
+			void UpdateTrackball();
+			void UpdatePan();
+			void UpdateDolly(const float dy_);
 
-			void LookAt(const glm::vec3& center, const glm::vec3& eye, const glm::vec3& up);
+			const glm::mat4 GetWorldViewMatrix() const;
+			const glm::mat4 GetScreenViewMatrix() const;
 
-			void SetFovY(float fovY);
-			void SetSize(float w, float h);
-			void SetClip(float nearClip, float farClip);
+			void Resize(const int width, const int height);
+			void Resize(const int width, const int height, const float fov, const float znear, const float zfar);
+			void Reset();
 
-			void UpdateMatrix();
-			const glm::mat4& GetViewMatrix() const;
-			const glm::mat4& GetProjectionMatrix() const;
+			void SetTrackballScale(float scale);
+			void SetDollyScale(float scale);
+			void SetDollyStartPosition(float pos);
+			void SetPanScale(float scale);
+			void SetProjection(const float fov, const float aspect, const float zNear, const float zFar);
+			void SetCenterOfRotation(const glm::vec3& c);
+			void SetWindowSize(const int& _w, const int & _h);
 
-			glm::vec3 GetEyePostion() const;
-			glm::vec3 GetUp() const;
-			glm::vec3 GetForward() const;
-			float GetFovY() const;
-			float GetNearClip() const;
-			float GetFarClip() const;
-			float GetWidth() const;
-			float GetHeight() const;
+			glm::vec3 get_arcball_vector(int x, int y);
 
-		private:
-			// View
-			glm::vec3	m_target;
-			glm::vec3	m_eye;
-			glm::vec3	m_up;
-			float		m_radius;
-
-			// Projection
-			float	m_fovYRad;
-			float	m_nearClip;
-			float	m_farClip;
-			float	m_width;
-			float	m_height;
-
-			// Matrix
-			glm::mat4	m_viewMatrix;
-			glm::mat4	m_projectionMatrix;
+			glm::vec4 unproject(const glm::mat4& mode_matrix, const glm::vec4& screen_space) const;
 		};
 	}
 }

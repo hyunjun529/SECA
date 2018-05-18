@@ -1,212 +1,220 @@
 #include "Camera.h"
 
 
-// Copyright(c) 2016-2017 benikabocha.
-// Distributed under the MIT License (http://opensource.org/licenses/MIT)
-// original GitHub repo : https://github.com/benikabocha/saba
-
-
 seca::render::Camera::Camera()
-	: m_target(0)
-	, m_eye(0, 0, 1)
-	, m_up(0, 1, 0)
-	, m_radius(1.0f)
-	, m_fovYRad(glm::radians(30.0f))
-	, m_nearClip(0.01f)
-	, m_farClip(100.0f)
-	, m_width(1)
-	, m_height(1)
+	: is_trackball_active_(false), is_dolly_active_(false), is_pan_active_(false)
 {
+	Reset();
 }
 
-void seca::render::Camera::Initialize(const glm::vec3 & center, float radius)
+void seca::render::Camera::Reset()
 {
-	m_target = center;
-	m_eye = center + glm::vec3(0.5f, 0.5f, 1) * radius * 5.0f;
-	m_up = glm::vec3(0, 1, 0);
-	m_radius = radius;
+	rot_ = rot_incr_ = glm::angleAxis(glm::degrees(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-	m_nearClip = radius * 0.01f;
-	m_farClip = radius * 100.0f;
-
-	UpdateMatrix();
+	trackball_scale_ = 1.0f;
+	dolly_scale_ = 0.01f;
+	pan_scale_ = 0.01f;
 }
 
-void seca::render::Camera::Initialize(const glm::vec3 & center, glm::vec3 & eye, float nearClip, float farClip, float radius)
+void seca::render::Camera::Resize(const int width, const int height)
 {
-	m_target = center;
-	m_eye = eye;
-	m_up = glm::vec3(0, 1, 0);
-	m_radius = radius;
-	m_nearClip = nearClip;
-	m_farClip = farClip;
+	const float zNear = 0.001, zFar = 100.0, fov = 45.0;
+	Resize(width, height, fov, zNear, zFar);
 }
 
-namespace
+void seca::render::Camera::Resize(const int width, const int height, const float fov, const float znear, const float zfar)
 {
-	glm::vec2 VectorToLatLong(const glm::vec3& vec)
+	SetWindowSize(width, height);
+
+	const float aspect = (float)width / (float)(height ? height : 1);
+
+	SetProjection(fov, aspect, znear, zfar);
+}
+
+void seca::render::Camera::SetWindowSize(const int& _w, const int & _h)
+{
+	width_ = _w;
+	height_ = _h;
+}
+
+void seca::render::Camera::StartMouseRotation(int x, int y)
+{
+	is_trackball_active_ = true;
+
+	rot_incr_ = glm::angleAxis(0.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
+	x_ = x;
+	y_ = y;
+
+	dx_ = dy_ = 0;
+}
+
+void seca::render::Camera::EndMouseRotation(int x, int y)
+{
+	dx_ = x - x_;
+	dy_ = y - y_;
+
+	if (dx_ != 0 || dy_ != 0) Update();
+
+	is_trackball_active_ = false;
+}
+
+void seca::render::Camera::StartMouseDolly(int x, int y)
+{
+	is_dolly_active_ = true;
+
+	x_ = x;
+	y_ = y;
+	dx_ = dy_ = 0;
+}
+
+void seca::render::Camera::EndMouseDolly(int x, int y)
+{
+	if (dx_ != 0 || dy_ != 0) Update();
+
+	is_dolly_active_ = false;
+	dx_ = dy_ = 0;
+}
+
+void seca::render::Camera::StartMousePan(int x, int y)
+{
+	is_pan_active_ = true;
+
+	x_ = x;
+	y_ = y;
+	dx_ = dy_ = 0;
+}
+
+void seca::render::Camera::EndMousePan(int x, int y)
+{
+	if (dx_ != 0 && dy_ != 0) Update();
+
+	is_pan_active_ = false;
+	dx_ = dy_ = 0;
+}
+
+void seca::render::Camera::ProcessMouseMotion(int x, int y)
+{
+	if (is_trackball_active_ || is_dolly_active_ || is_pan_active_)
 	{
-		const float phi = std::atan2(vec.x, vec.z);
-		const float theta = std::acos(vec.y);
+		dx_ = x - x_;
+		dy_ = y - y_;
 
-		return glm::vec2(
-			(glm::pi<float>() + phi) / glm::pi<float>() * 0.5f,
-			theta / glm::pi<float>()
-		);
-	}
 
-	glm::vec3 LatLongToVector(const glm::vec2& latLong)
-	{
-		const float phi = latLong.x * 2.0f * glm::pi<float>();
-		const float theta = latLong.y * glm::pi<float>();
+		if (dx_ == 0 && dy_ == 0) return; // generate problems
 
-		const float st = std::sin(theta);
-		const float sp = std::sin(phi);
-		const float ct = std::cos(theta);
-		const float cp = std::cos(phi);
+		Update();
 
-		return glm::vec3(-st * sp, ct, -st * cp);
+		// this stops rotating when mouse didn't move before button release
+		x_ = x;
+		y_ = y;
 	}
 }
 
-void seca::render::Camera::Orbit(float x, float y)
+void seca::render::Camera::ContinueRotation()
 {
-	auto toEye = m_eye - m_target;
-	auto toEyeLen = glm::length(toEye);
-	auto toEyeNormal = toEye / toEyeLen;
-
-	auto latLong = VectorToLatLong(toEyeNormal);
-	latLong.x -= x;
-	latLong.y -= y;
-	latLong.y = glm::clamp(latLong.y, 0.02f, 0.98f);
-
-	auto newToEyeNormal = LatLongToVector(latLong);
-	auto newToEye = newToEyeNormal * toEyeLen;
-	m_eye = m_target + newToEye;
+	//simply increment the rotation
+	if (!is_trackball_active_) rot_ = rot_incr_ * rot_;
+	else rot_incr_ = glm::angleAxis(0.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
-void seca::render::Camera::Dolly(float z)
+glm::vec3 seca::render::Camera::get_arcball_vector(int x, int y)
 {
-	const float minLen = 0.01f * m_radius;
-	const float maxLen = 50.0f * m_radius;
+	glm::vec3 P = glm::vec3((float)x / (float)width_ * 2 - 1.0f, (float)y / (float)height_ * 2 - 1.0f, 0.0f);
 
-	auto toTarget = m_target - m_eye;
-	auto toTargetLen = glm::length(toTarget);
-	auto toTargetNormal = toTarget / toTargetLen;
+	P.y = -P.y;
 
-	auto delta = toTargetLen * z;
-	auto newLen = toTargetLen + delta;
+	float OP_squared = P.x * P.x + P.y * P.y;
 
-	if ((minLen < newLen || z < 0.0f) &&
-		(newLen < maxLen || z > 0.0f)
-		)
-	{
-		m_eye += toTargetNormal * delta;
-	}
+	if (OP_squared <= 1 * 1) P.z = sqrt(1 * 1 - OP_squared);	// Pythagoras
+	else P = glm::normalize(P);									// nearest point
+
+	return P;
 }
 
-void seca::render::Camera::Pan(float x, float y)
+void seca::render::Camera::UpdateTrackball()
 {
-	float len = glm::length(m_target - m_eye);
-	float ay = std::tan(m_fovYRad) * len;
-	float ax = ay * (m_width / m_height);
-	float dy = ay * y;
-	float dx = ax * -x;
+	// http://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball
+	const glm::vec3 va = get_arcball_vector(x_, y_);
+	const glm::vec3 vb = get_arcball_vector(x_ + dx_, y_ + dy_);
 
-	glm::vec3 zAxis = glm::normalize(m_eye - m_target);
-	glm::vec3 xAxis = glm::normalize(glm::cross(m_up, zAxis));
-	glm::vec3 yAxis = glm::normalize(glm::cross(zAxis, xAxis));
-	m_target += dx * xAxis + dy * yAxis;
-	m_eye += dx * xAxis + dy * yAxis;
+	const float angle = glm::degrees(acos(glm::min(1.0f, glm::dot(va, vb)))) * trackball_scale_;
+
+	const glm::vec3 axis_in_camera_coord = glm::normalize(glm::cross(va, vb));
+
+	rot_incr_ = glm::angleAxis(angle, axis_in_camera_coord);		// note
+
+	rot_ = rot_incr_ * rot_;
 }
 
-void seca::render::Camera::LookAt(const glm::vec3 & center, const glm::vec3 & eye, const glm::vec3 & up)
+void seca::render::Camera::UpdatePan()
 {
-	m_target = center;
-	m_eye = eye;
-	m_up = up;
+	glm::vec3 v(dx_, -dy_, 0);
+
+	pan_ += v * pan_scale_;
 }
 
-void seca::render::Camera::UpdateMatrix()
+void seca::render::Camera::UpdateDolly(const float dy)
 {
-	m_viewMatrix = glm::lookAtRH(m_eye, m_target, m_up);
+	glm::vec3 v(0, 0, dy);
 
-	if (m_width <= 0 || m_height <= 0)
-	{
-		return;
-	}
-	m_projectionMatrix = glm::perspectiveFovRH(
-		m_fovYRad,
-		m_width,
-		m_height,
-		m_nearClip,
-		m_farClip
-	);
+	dolly_ += v * dolly_scale_;
 }
 
-const glm::mat4& seca::render::Camera::GetViewMatrix() const
+void seca::render::Camera::Update()
 {
-	return m_viewMatrix;
+	if (is_trackball_active_)	UpdateTrackball();
+	if (is_dolly_active_)		UpdateDolly(dy_);
+	if (is_pan_active_)			UpdatePan();
 }
 
-void seca::render::Camera::SetFovY(float fovY)
+const glm::mat4 seca::render::Camera::GetWorldViewMatrix() const
 {
-	m_fovYRad = fovY;
+	//concatenate all the transforms
+	return projection_ * glm::translate(pan_) * glm::translate(dolly_)
+		* glm::translate(rot_center) * glm::mat4_cast(rot_) * glm::translate(-rot_center);
 }
 
-void seca::render::Camera::SetSize(float w, float h)
+const glm::mat4 seca::render::Camera::GetScreenViewMatrix() const
 {
-	m_width = w;
-	m_height = h;
+	// glm::vec3(0.0f, 0.0f, -1.0f) is a default back step vector
+	return projection_ * glm::translate(glm::vec3(0.0f, 0.0f, -1.0f)) *glm::mat4_cast(rot_);
 }
 
-void seca::render::Camera::SetClip(float nearClip, float farClip)
+glm::vec4 seca::render::Camera::unproject(const glm::mat4& model_matrix, const glm::vec4& screen_space) const
 {
-	m_nearClip = nearClip;
-	m_farClip = farClip;
+	const glm::vec4 world_space = glm::inverse(GetWorldViewMatrix() * model_matrix) * screen_space;
+
+	return world_space / world_space.w;
 }
 
-const glm::mat4& seca::render::Camera::GetProjectionMatrix() const
+void seca::render::Camera::SetProjection(const float fov, const float aspect, const float zNear, const float zFar)
 {
-	return m_projectionMatrix;
+	projection_ = glm::perspective(fov, aspect, zNear, zFar); // radian? degree?
 }
 
-glm::vec3 seca::render::Camera::GetEyePostion() const
+// Set the speed for the trackball.
+void seca::render::Camera::SetTrackballScale(float scale)
 {
-	return m_eye;
+	trackball_scale_ = scale;
 }
 
-glm::vec3 seca::render::Camera::GetUp() const
+void seca::render::Camera::SetDollyScale(float scale)
 {
-	return glm::normalize(m_up);
+	dolly_scale_ = scale;
 }
 
-glm::vec3 seca::render::Camera::GetForward() const
+void seca::render::Camera::SetDollyStartPosition(float pos)
 {
-	return glm::normalize(m_target - m_eye);
+	dolly_.z = pos;
 }
 
-float seca::render::Camera::GetFovY() const
+void seca::render::Camera::SetPanScale(float scale)
 {
-	return m_fovYRad;
+	pan_scale_ = scale;
 }
 
-float seca::render::Camera::GetNearClip() const
+void seca::render::Camera::SetCenterOfRotation(const glm::vec3& c)
 {
-	return m_nearClip;
-}
-
-float seca::render::Camera::GetFarClip() const
-{
-	return m_farClip;
-}
-
-float seca::render::Camera::GetWidth() const
-{
-	return m_width;
-}
-
-float seca::render::Camera::GetHeight() const
-{
-	return m_height;
+	rot_center = c;
 }

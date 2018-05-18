@@ -16,9 +16,6 @@
     <ClCompile Include="window\Window.cpp">
       <Filter>window</Filter>
     </ClCompile>
-    <ClCompile Include="window\WindowCamera.cpp">
-      <Filter>window</Filter>
-    </ClCompile>
     <ClCompile Include="visualization\Grid.cpp">
       <Filter>visualization</Filter>
     </ClCompile>
@@ -35,9 +32,6 @@
     </ClInclude>
     <ClInclude Include="ui\CommonUI.h">
       <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="window\WindowCamera.h">
-      <Filter>window</Filter>
     </ClInclude>
     <ClInclude Include="visualization\Grid.h">
       <Filter>visualization</Filter>

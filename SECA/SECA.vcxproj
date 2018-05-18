@@ -134,7 +134,6 @@
     <ClCompile Include="visualization\Axis.cpp" />
     <ClCompile Include="visualization\Grid.cpp" />
     <ClCompile Include="window\Window.cpp" />
-    <ClCompile Include="window\WindowCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\CommonUI.h" />
@@ -142,7 +141,6 @@
     <ClInclude Include="visualization\Axis.h" />
     <ClInclude Include="visualization\Grid.h" />
     <ClInclude Include="window\Window.h" />
-    <ClInclude Include="window\WindowCamera.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
