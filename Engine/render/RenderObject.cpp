@@ -199,16 +199,10 @@ void seca::render::RenderObject::CreateShaders(void)
 	GLenum ErrorCheckValue = glGetError();
 
 	ShaderUtil shaderUtil;
-	const GLchar *VertexShader = shaderUtil.vertUVonly;
-	const GLchar *FragmentShader = shaderUtil.fragUVonly;
-
-	VertexShaderId = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(VertexShaderId, 1, &VertexShader, NULL);
-	glCompileShader(VertexShaderId);
-
-	FragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(FragmentShaderId, 1, &FragmentShader, NULL);
-	glCompileShader(FragmentShaderId);
+	// VertexShaderId = shaderUtil.getShaderFromFile("../Engine/render/shader/UVonly.vert", GL_VERTEX_SHADER);
+	VertexShaderId = shaderUtil.getShaderUVonlyVert();
+	// FragmentShaderId = shaderUtil.getShaderFromFile("../Engine/render/shader/UVonly.frag", GL_FRAGMENT_SHADER);
+	FragmentShaderId = shaderUtil.getShaderUVonlyFrag();
 
 	ProgramId = glCreateProgram();
 	glAttachShader(ProgramId, VertexShaderId);
@@ -235,8 +229,8 @@ void seca::render::RenderObject::DestroyShaders(void)
 	glDetachShader(ProgramId, VertexShaderId);
 	glDetachShader(ProgramId, FragmentShaderId);
 
-	glDeleteShader(FragmentShaderId);
 	glDeleteShader(VertexShaderId);
+	glDeleteShader(FragmentShaderId);
 
 	glDeleteProgram(ProgramId);
 

@@ -13,6 +13,16 @@ namespace seca
 		class ShaderUtil
 		{
 		public:
+			ShaderUtil() {}
+			~ShaderUtil() {}
+
+			GLuint getShaderFromFile(const char * file_path, GLenum shader_type);
+			GLuint getShaderUVonlyVert();
+			GLuint getShaderUVonlyFrag();
+
+		private:
+			char *m_shader_code;
+
 			const GLchar *vertUVonly =
 			{
 				"#version 400 core\n"\
@@ -49,6 +59,8 @@ namespace seca
 
 				"}\n"
 			};
+
+			GLuint compileShader(const char * shader_code, GLenum shader_type);
 		};
 	}
 }
