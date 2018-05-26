@@ -35,10 +35,10 @@ void seca::render::RenderObject::clear()
 	CreateVBO();
 }
 
-void seca::render::RenderObject::loadFBXObject(const char *_file, const char *_path)
+void seca::render::RenderObject::loadFBXObject(const char *_file)
 {
 	format::FBXLoader fbxLoader;
-	m_objects.push_back(fbxLoader.loadFBX(_file, _path));
+	m_objects.push_back(fbxLoader.loadFBX(_file));
 
 	CreateVBO();
 }

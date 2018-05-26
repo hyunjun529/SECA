@@ -1,6 +1,8 @@
 #ifndef _STDAFX_H_
 #define _STDAFX_H_
 
+#define _SECURE_SCL 0
+
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "tiny_obj_loader.h"
 

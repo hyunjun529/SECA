@@ -2,12 +2,11 @@
 #define SECA_FORMAT_FBX_FBXLOADER_H_
 
 
-//#include <fbxsdk.h>
+#include <memory>
+#include <fbxsdk.h>
 
 
 #include "render/Object.h"
-
-#include "util/Log.h"
 
 
 namespace seca
@@ -23,7 +22,7 @@ namespace seca
 		public:
 			FBXLoader() {}
 			~FBXLoader() {}
-			render::Object loadFBX(const char *_file, const char *_path);
+			render::Object loadFBX(const char *_file);
 		};
 	}
 }

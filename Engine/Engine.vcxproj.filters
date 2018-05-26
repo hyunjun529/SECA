@@ -46,9 +46,6 @@
     <Filter Include="format\FBX">
       <UniqueIdentifier>{28b71840-5c09-4913-b17d-2751e2d8b132}</UniqueIdentifier>
     </Filter>
-    <Filter Include="_external\fbxsdk">
-      <UniqueIdentifier>{1fc31857-0753-4237-80f1-52ff26c69d34}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="render\Camera.cpp">
@@ -147,9 +144,6 @@
     </ClInclude>
     <ClInclude Include="format\FBX\FBXLoader.h">
       <Filter>format\FBX</Filter>
-    </ClInclude>
-    <ClInclude Include="..\external\FBX SDK\2018.1.1\include\fbxsdk.h">
-      <Filter>_external\fbxsdk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
