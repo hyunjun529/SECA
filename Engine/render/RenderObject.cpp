@@ -35,6 +35,14 @@ void seca::render::RenderObject::clear()
 	CreateVBO();
 }
 
+void seca::render::RenderObject::loadFBXObject(const char *_file, const char *_path)
+{
+	format::FBXLoader fbxLoader;
+	m_objects.push_back(fbxLoader.loadFBX(_file, _path));
+
+	CreateVBO();
+}
+
 void seca::render::RenderObject::loadOBJObject(const char *_file, const char *_path)
 {
 	format::OBJLoader objLoader;
@@ -87,7 +95,7 @@ void seca::render::RenderObject::render(const glm::mat4 &MVP)
 		}
 		else
 		{
-			glDrawArrays(o->drawHow, 0, o->bufferPosition.size());
+			glDrawArrays(o->drawHow, 0, (GLsizei)o->bufferPosition.size());
 		}
 	}
 }

@@ -178,11 +178,15 @@ void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const
 		pos += newStr.length();
 	}
 
-	std::size_t found = str.find_last_of("/\\\\");
+	GLsizei found = str.find_last_of("/\\\\");
 	std::string path = str.substr(0, found + 1);
 	std::string file = str.substr(found + 1);
 
 	SECA_CONSOLE_INFO("{}, {}", file.c_str(), path.c_str());
+
+	// need file format auto detection
+
+	//srcWindow->render->loadFBXObject(file.c_str(), path.c_str());
 
 	srcWindow->render->loadOBJObject(file.c_str(), path.c_str());
 }

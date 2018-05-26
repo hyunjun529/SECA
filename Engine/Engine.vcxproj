@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../external/gl3w;../external/glfw-3.2.1/include;../external/imgui-1.53;../external/linmath.h;../external/spdlog;../external/tinyobjloader;../external/stb;../external/glm;./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../external/gl3w;../external/glfw-3.2.1/include;../external/imgui-1.53;../external/linmath.h;../external/spdlog;../external/tinyobjloader;../external/stb;../external/glm;../external/FBX SDK/2018.1.1/include;./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -116,7 +116,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../external/gl3w;../external/glfw-3.2.1/include;../external/imgui-1.53;../external/linmath.h;../external/spdlog;../external/tinyobjloader;../external/stb;../external/glm;./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../external/gl3w;../external/glfw-3.2.1/include;../external/imgui-1.53;../external/linmath.h;../external/spdlog;../external/tinyobjloader;../external/stb;../external/glm;../external/FBX SDK/2018.1.1/include;./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -129,15 +129,16 @@
     <ClCompile Include="..\external\imgui-1.53\imgui_demo.cpp" />
     <ClCompile Include="..\external\imgui-1.53\imgui_draw.cpp" />
     <ClCompile Include="..\external\imgui-1.53\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="format\FBX\FBXLoader.cpp" />
     <ClCompile Include="format\OBJ\OBJLoader.cpp" />
     <ClCompile Include="render\Camera.cpp" />
     <ClCompile Include="render\RenderObject.cpp" />
     <ClCompile Include="render\ShaderUtil.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="util\File.cpp" />
     <ClCompile Include="util\Log.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\external\FBX SDK\2018.1.1\include\fbxsdk.h" />
     <ClInclude Include="..\external\gl3w\GL\gl3w.h" />
     <ClInclude Include="..\external\gl3w\GL\glcorearb.h" />
     <ClInclude Include="..\external\glm\glm\glm.hpp" />
@@ -151,13 +152,13 @@
     <ClInclude Include="..\external\linmath.h\linmath.h" />
     <ClInclude Include="..\external\stb\stb_image.h" />
     <ClInclude Include="..\external\tinyobjloader\tiny_obj_loader.h" />
+    <ClInclude Include="format\FBX\FBXLoader.h" />
     <ClInclude Include="format\OBJ\OBJLoader.h" />
     <ClInclude Include="render\Camera.h" />
     <ClInclude Include="render\Object.h" />
     <ClInclude Include="render\RenderObject.h" />
     <ClInclude Include="render\ShaderUtil.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="util\File.h" />
     <ClInclude Include="util\Log.h" />
   </ItemGroup>
   <ItemGroup>

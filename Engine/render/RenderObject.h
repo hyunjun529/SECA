@@ -17,6 +17,7 @@
 #include "render/Object.h"
 #include "render/ShaderUtil.h"
 
+#include "format/FBX/FBXLoader.h"
 #include "format/OBJ/OBJLoader.h"
 
 
@@ -58,6 +59,7 @@ namespace seca
 			void render();
 			void render(const glm::mat4 &MVP);
 
+			void loadFBXObject(const char *_file, const char *_path);
 			void loadOBJObject(const char *_file, const char *_path);
 			void loadObject(render::Object object);
 		};

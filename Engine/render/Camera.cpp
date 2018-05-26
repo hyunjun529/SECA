@@ -18,7 +18,7 @@ void seca::render::Camera::Reset()
 
 void seca::render::Camera::Resize(const int width, const int height)
 {
-	const float zNear = 0.001, zFar = 100.0, fov = 45.0;
+	const float zNear = 0.001f, zFar = 100.0f, fov = 45.0f;
 	Resize(width, height, fov, zNear, zFar);
 }
 
@@ -164,7 +164,7 @@ void seca::render::Camera::UpdateDolly(const float dy)
 void seca::render::Camera::Update()
 {
 	if (is_trackball_active_)	UpdateTrackball();
-	if (is_dolly_active_)		UpdateDolly(dy_);
+	if (is_dolly_active_)		UpdateDolly((float)dy_);
 	if (is_pan_active_)			UpdatePan();
 }
 

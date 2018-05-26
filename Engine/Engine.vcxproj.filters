@@ -43,6 +43,12 @@
     <Filter Include="format\OBJ">
       <UniqueIdentifier>{552fae81-cb2c-46a0-9b76-b459f1393ee2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="format\FBX">
+      <UniqueIdentifier>{28b71840-5c09-4913-b17d-2751e2d8b132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external\fbxsdk">
+      <UniqueIdentifier>{1fc31857-0753-4237-80f1-52ff26c69d34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="render\Camera.cpp">
@@ -50,9 +56,6 @@
     </ClCompile>
     <ClCompile Include="render\ShaderUtil.cpp">
       <Filter>render</Filter>
-    </ClCompile>
-    <ClCompile Include="util\File.cpp">
-      <Filter>util</Filter>
     </ClCompile>
     <ClCompile Include="util\Log.cpp">
       <Filter>util</Filter>
@@ -79,6 +82,9 @@
     <ClCompile Include="render\RenderObject.cpp">
       <Filter>render</Filter>
     </ClCompile>
+    <ClCompile Include="format\FBX\FBXLoader.cpp">
+      <Filter>format\FBX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="render\Camera.h">
@@ -86,9 +92,6 @@
     </ClInclude>
     <ClInclude Include="render\ShaderUtil.h">
       <Filter>render</Filter>
-    </ClInclude>
-    <ClInclude Include="util\File.h">
-      <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="util\Log.h">
       <Filter>util</Filter>
@@ -141,6 +144,12 @@
     </ClInclude>
     <ClInclude Include="render\Object.h">
       <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="format\FBX\FBXLoader.h">
+      <Filter>format\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\FBX SDK\2018.1.1\include\fbxsdk.h">
+      <Filter>_external\fbxsdk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
