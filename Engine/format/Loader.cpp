@@ -4,8 +4,7 @@
 seca::render::Object seca::format::Loader::loadFBXObject(const char *_file)
 {
 	format::FBXLoader fbxLoader;
-	render::Object object = fbxLoader.loadFBX(_file);
-	return object;
+	return fbxLoader.loadFBX(_file);
 }
 
 seca::render::Object seca::format::Loader::loadOBJObject(const char *_file, const char *_path)

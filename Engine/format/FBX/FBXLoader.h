@@ -3,6 +3,7 @@
 
 
 #include <memory>
+#include <vector>
 #include <fbxsdk.h>
 
 
@@ -17,12 +18,18 @@ namespace seca
 		class FBXLoader
 		{
 		private:
-			
+			seca::render::Object object;
+
+			FbxNode *m_pNode;
+			FbxMesh	*m_pMesh;
+
 
 		public:
 			FBXLoader() {}
 			~FBXLoader() {}
+
 			render::Object loadFBX(const char *_file);
+			void traverseFBXNodes(FbxNode* node);
 		};
 	}
 }
