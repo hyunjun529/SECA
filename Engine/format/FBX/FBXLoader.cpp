@@ -28,6 +28,7 @@ seca::render::Object seca::format::FBXLoader::loadFBX(const char *_file)
 
 	lImporter->Destroy();
 
+
 	// make object great again
 	FbxNode* lRootNode = lScene->GetRootNode();
 	if (lRootNode)
@@ -37,8 +38,10 @@ seca::render::Object seca::format::FBXLoader::loadFBX(const char *_file)
 	}
 	lSdkManager->Destroy();
 
+
 	return object;
 }
+
 
 // ref : https://github.com/suitengu/fbxDemo/blob/master/fbxDemo/fbxDemoApp.cpp
 void seca::format::FBXLoader::traverseFBXNodes(FbxNode* node)
@@ -73,39 +76,14 @@ void seca::format::FBXLoader::traverseFBXNodes(FbxNode* node)
 				tmp_vertex[j].z = (GLfloat)coord.mData[2] * 0.01f;
 			}
 
-			//ref : https://github.com/suitengu/fbxDemo/blob/master/fbxDemo/fbxDemoApp.cpp#L219
-			//this->setGeometry(tempVerts, numVertices);
-
-
 			// Get indices from the mesh
 			int num_indices = mesh->GetPolygonVertexCount();
 			int *indices = mesh->GetPolygonVertices();
-			// i don't use index buffer
-			// setIndexBuffer((GLuint*)indices, numIndices);
 			for (int j = 0; j < num_indices; j++)
 			{
 				object.bufferPosition.push_back(tmp_vertex[indices[j]]);
 			}
 
-			//FbxGeometryElementNormal* normalElement = mesh->GetElementNormal();
-			//if (normalElement)
-			//{
-			//	int numNormals = mesh->GetPolygonCount() * 3;
-			//	GLfloat* tempNormals = new GLfloat[numNormals * 3];
-			//	int vertexCounter = 0;
-			//	for (int polyCounter = 0; polyCounter < mesh->GetPolygonCount(); polyCounter++)
-			//	{
-			//		for (int i = 0; i < 3; i++)
-			//		{
-			//			FbxVector4 normal = normalElement->GetDirectArray().GetAt(vertexCounter);
-			//			tempNormals[vertexCounter * 3 + 0] = (GLfloat)normal[0];
-			//			tempNormals[vertexCounter * 3 + 1] = (GLfloat)normal[1];
-			//			tempNormals[vertexCounter * 3 + 2] = (GLfloat)normal[2];
-			//			vertexCounter++;
-			//		}
-			//	}
-			//	this->setNormals(tempNormals, numNormals);
-			//}
 		}
 		this->traverseFBXNodes(childNode);
 	}
