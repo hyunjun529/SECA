@@ -142,6 +142,7 @@
     <ClCompile Include="..\external\imgui-1.53\imgui_draw.cpp" />
     <ClCompile Include="..\external\imgui-1.53\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="format\FBX\FBXLoader.cpp" />
+    <ClCompile Include="format\Loader.cpp" />
     <ClCompile Include="format\OBJ\OBJLoader.cpp" />
     <ClCompile Include="render\Camera.cpp" />
     <ClCompile Include="render\RenderObject.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="..\external\stb\stb_image.h" />
     <ClInclude Include="..\external\tinyobjloader\tiny_obj_loader.h" />
     <ClInclude Include="format\FBX\FBXLoader.h" />
+    <ClInclude Include="format\Loader.h" />
     <ClInclude Include="format\OBJ\OBJLoader.h" />
     <ClInclude Include="render\Camera.h" />
     <ClInclude Include="render\Object.h" />

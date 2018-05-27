@@ -63,6 +63,9 @@ seca::viewer::Window::Window()
 	visualization::Grid grid;
 	grid.createGridObject();
 	render->loadObject(grid.getGridObject());
+
+	// loader
+	loader = new format::Loader();
 }
 
 void seca::viewer::Window::Run()
@@ -71,6 +74,10 @@ void seca::viewer::Window::Run()
 	ui::StatusUI *uiStatus = new ui::StatusUI();
 	uiStatus->param_clearColor = &param_clearColor;
 	m_uis.push_back(uiStatus);
+
+	ui::ObjectListUI *ui_object_list = new ui::ObjectListUI();
+	ui_object_list->m_objectLists = &m_objects;
+	m_uis.push_back(ui_object_list);
 
 	// render
 	while (!glfwWindowShouldClose(m_window))
@@ -142,6 +149,8 @@ void seca::viewer::Window::CursorPositionCallback(GLFWwindow* window, double xpo
 {
 	Window *srcWindow = (Window*)glfwGetWindowUserPointer(window);
 
+	// need to check active imgui
+
 	srcWindow->camera->ProcessMouseMotion(xpos, ypos);
 }
 
@@ -185,8 +194,15 @@ void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const
 	SECA_CONSOLE_INFO("{}, {}", file.c_str(), path.c_str());
 
 	// need file format auto detection
+	render::Object target_object;
 
-	srcWindow->render->loadFBXObject(str.c_str());
+	//srcWindow->render->loadFBXObject(str.c_str());
+	//target_object = srcWindow->loader->loadFBXObject(file.c_str());
+	//srcWindow->m_objects.push_back(target_object);
 
 	//srcWindow->render->loadOBJObject(file.c_str(), path.c_str());
+	target_object = srcWindow->loader->loadOBJObject(file.c_str(), path.c_str());
+	srcWindow->m_objects.push_back(target_object);
+
+	srcWindow->render->loadObject(srcWindow->m_objects.back());
 }

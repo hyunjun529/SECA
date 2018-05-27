@@ -82,6 +82,9 @@
     <ClCompile Include="format\FBX\FBXLoader.cpp">
       <Filter>format\FBX</Filter>
     </ClCompile>
+    <ClCompile Include="format\Loader.cpp">
+      <Filter>format</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="render\Camera.h">
@@ -144,6 +147,9 @@
     </ClInclude>
     <ClInclude Include="format\FBX\FBXLoader.h">
       <Filter>format\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="format\Loader.h">
+      <Filter>format</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

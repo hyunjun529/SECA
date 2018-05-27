@@ -39,5 +39,8 @@
     <ClInclude Include="visualization\Axis.h">
       <Filter>visualization</Filter>
     </ClInclude>
+    <ClInclude Include="ui\ObjectListUI.h">
+      <Filter>ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

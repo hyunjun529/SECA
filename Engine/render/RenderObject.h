@@ -59,8 +59,6 @@ namespace seca
 			void render();
 			void render(const glm::mat4 &MVP);
 
-			void loadFBXObject(const char *_file);
-			void loadOBJObject(const char *_file, const char *_path);
 			void loadObject(render::Object object);
 		};
 	}

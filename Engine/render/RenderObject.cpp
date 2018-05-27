@@ -35,22 +35,6 @@ void seca::render::RenderObject::clear()
 	CreateVBO();
 }
 
-void seca::render::RenderObject::loadFBXObject(const char *_file)
-{
-	format::FBXLoader fbxLoader;
-	m_objects.push_back(fbxLoader.loadFBX(_file));
-
-	CreateVBO();
-}
-
-void seca::render::RenderObject::loadOBJObject(const char *_file, const char *_path)
-{
-	format::OBJLoader objLoader;
-	m_objects.push_back(objLoader.loadOBJ(_file, _path));
-
-	CreateVBO();
-}
-
 void seca::render::RenderObject::loadObject(render::Object object)
 {
 	m_objects.push_back(object);

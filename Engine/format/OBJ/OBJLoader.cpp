@@ -1,6 +1,9 @@
 #include "OBJLoader.h"
 
 
+#include "util/Log.h"
+
+
 seca::render::Object seca::format::OBJLoader::loadOBJ(const char *_file, const char *_path)
 {
 	seca::render::Object o;

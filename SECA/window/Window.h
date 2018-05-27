@@ -2,8 +2,9 @@
 #define SECA_VIEWER_WINDOW_H_
 
 
-#include <list>
 #include <memory>
+#include <list>
+#include <vector>
 
 
 #include <GL/gl3w.h>
@@ -19,9 +20,11 @@
 #include "render/Object.h"
 #include "render/RenderObject.h"
 
+#include "format/Loader.h"
 
 #include "../ui/CommonUI.h"
 #include "../ui/StatusUI.h"
+#include "../ui/ObjectListUI.h"
 
 
 namespace seca
@@ -46,6 +49,10 @@ namespace seca
 
 			render::RenderObject *render;
 			render::Camera *camera;
+
+			format::Loader *loader;
+
+			std::vector<render::Object> m_objects;
 
 
 		public:

@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\CommonUI.h" />
+    <ClInclude Include="ui\ObjectListUI.h" />
     <ClInclude Include="ui\StatusUI.h" />
     <ClInclude Include="visualization\Axis.h" />
     <ClInclude Include="visualization\Grid.h" />

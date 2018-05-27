@@ -8,8 +8,6 @@
 
 #include "render/Object.h"
 
-#include "util/Log.h"
-
 
 namespace seca
 {
