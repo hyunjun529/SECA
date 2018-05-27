@@ -5,7 +5,7 @@
 conflict in (format.h line 3887, mutable char buffer_[BUFFER_SIZE];), mutable char + was already overload in fbxsdk.
 so i can't use Log.
 */
-//#include "util/Log.h"
+//#include "util/Logger.h"
 
 
 seca::render::Object seca::format::FBXLoader::loadFBX(const char *_file)

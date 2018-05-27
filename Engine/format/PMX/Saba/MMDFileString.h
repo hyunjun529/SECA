@@ -6,8 +6,8 @@
 #ifndef SABA_MODEL_MMD_MMDFILESTRING_H_
 #define SABA_MODEL_MMD_MMDFILESTRING_H_
 
-#include <Saba/Base/UnicodeUtil.h>
-#include <Saba/Base/File.h>
+#include "Base/UnicodeUtil.h"
+#include "Base/File.h"
 
 #include "SjisToUnicode.h"
 
