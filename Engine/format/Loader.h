@@ -6,6 +6,7 @@
 
 #include "FBX/FBXLoader.h"
 #include "OBJ/OBJLoader.h"
+#include "PMX/PMXLoader.h"
 
 
 namespace seca
@@ -23,6 +24,7 @@ namespace seca
 
 			render::Object loadFBXObject(const char *_file);
 			render::Object loadOBJObject(const char *_file, const char *_path);
+			render::Object loadPMXObject(const char *_file, const char *_path);
 		};
 	}
 }

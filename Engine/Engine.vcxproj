@@ -144,6 +144,7 @@
     <ClCompile Include="format\FBX\FBXLoader.cpp" />
     <ClCompile Include="format\Loader.cpp" />
     <ClCompile Include="format\OBJ\OBJLoader.cpp" />
+    <ClCompile Include="format\PMX\PMXLoader.cpp" />
     <ClCompile Include="render\Camera.cpp" />
     <ClCompile Include="render\RenderObject.cpp" />
     <ClCompile Include="render\ShaderUtil.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="format\FBX\FBXLoader.h" />
     <ClInclude Include="format\Loader.h" />
     <ClInclude Include="format\OBJ\OBJLoader.h" />
+    <ClInclude Include="format\PMX\PMXLoader.h" />
     <ClInclude Include="render\Camera.h" />
     <ClInclude Include="render\Object.h" />
     <ClInclude Include="render\RenderObject.h" />
