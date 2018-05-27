@@ -43,7 +43,7 @@ namespace seca
 					itr != m_objectLists->end();
 					itr++)
 				{
-					ImGui::Text("%d", itr->numTriangles);
+					ImGui::Text("test");
 				}
 
 				ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing();
