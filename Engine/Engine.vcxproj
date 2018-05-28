@@ -95,8 +95,8 @@
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
-      <AdditionalDependencies>libfbxsdk-md.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../external/FBX SDK/2018.1.1/lib/vs2015/x64/debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-md.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletSoftBody_Debug.lib;LinearMath_Debug.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../external/FBX SDK/2018.1.1/lib/vs2015/x64/debug;../external/bullet3-2.87/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,10 +129,10 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>libfbxsdk-md.lib</AdditionalDependencies>
+      <AdditionalDependencies>libfbxsdk-md.lib;BulletCollision.lib;BulletDynamics.lib;BulletSoftBody.lib;LinearMath.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>../external/FBX SDK/2018.1.1/lib/vs2015/x64/release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../external/FBX SDK/2018.1.1/lib/vs2015/x64/release;../external/bullet3-2.87/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -2,7 +2,13 @@
 #define SECA_FORMAT_PMX_PMXLOADER_H_
 
 
+#include <string>
+
+
 #include "render/Object.h"
+
+#include "Saba/PMXFile.h"
+#include "Saba/PMXModel.h"
 
 
 namespace seca
