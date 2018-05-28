@@ -12,7 +12,7 @@
 #include <imgui_impl_glfw_gl3.h>
 
 
-#include "util/Log.h"
+#include "util/Logger.h"
 
 #include "render/Object.h"
 #include "render/ShaderUtil.h"

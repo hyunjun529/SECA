@@ -7,7 +7,7 @@
 #include <vector>
 
 
-#include "util/Log.h"
+#include "util/Logger.h"
 
 
 GLuint seca::render::ShaderUtil::getShaderFromFile(const char * file_path, GLenum shader_type)

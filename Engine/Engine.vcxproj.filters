@@ -46,6 +46,18 @@
     <Filter Include="format\FBX">
       <UniqueIdentifier>{28b71840-5c09-4913-b17d-2751e2d8b132}</UniqueIdentifier>
     </Filter>
+    <Filter Include="format\PMX">
+      <UniqueIdentifier>{4f8b6c66-3e9e-4872-8a88-ac66430aee95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="format\PMX\Saba">
+      <UniqueIdentifier>{d2842b8e-bb1d-43ff-b736-a675d265baa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="format\PMX\Saba\BASE">
+      <UniqueIdentifier>{82ae1422-342c-4d28-9821-5495d076ce68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_external\bullet3">
+      <UniqueIdentifier>{6f72f9f9-afcf-43b8-b9a1-534abca599f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="render\Camera.cpp">
@@ -53,9 +65,6 @@
     </ClCompile>
     <ClCompile Include="render\ShaderUtil.cpp">
       <Filter>render</Filter>
-    </ClCompile>
-    <ClCompile Include="util\Log.cpp">
-      <Filter>util</Filter>
     </ClCompile>
     <ClCompile Include="..\external\gl3w\GL\gl3w.c">
       <Filter>_external\gl3w\GL</Filter>
@@ -85,6 +94,78 @@
     <ClCompile Include="format\Loader.cpp">
       <Filter>format</Filter>
     </ClCompile>
+    <ClCompile Include="format\PMX\PMXLoader.cpp">
+      <Filter>format\PMX</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\SjisToUnicode.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\VMDAnimation.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\VMDCameraAnimation.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\VMDFile.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\VPDFile.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\MMDCamera.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\MMDIkSolver.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\MMDMaterial.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\MMDModel.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\MMDMorph.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\MMDNode.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\MMDPhysics.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\PMDFile.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\PMDModel.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\PMXFile.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\PMXModel.cpp">
+      <Filter>format\PMX\Saba</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\Base\Log.cpp">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\Base\Path.cpp">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\Base\Singleton.cpp">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\Base\Time.cpp">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\Base\UnicodeUtil.cpp">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClCompile>
+    <ClCompile Include="format\PMX\Saba\Base\File.cpp">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClCompile>
+    <ClCompile Include="util\Logger.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="render\Camera.h">
@@ -92,9 +173,6 @@
     </ClInclude>
     <ClInclude Include="render\ShaderUtil.h">
       <Filter>render</Filter>
-    </ClInclude>
-    <ClInclude Include="util\Log.h">
-      <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="..\external\gl3w\GL\gl3w.h">
       <Filter>_external\gl3w\GL</Filter>
@@ -150,6 +228,87 @@
     </ClInclude>
     <ClInclude Include="format\Loader.h">
       <Filter>format</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\PMXLoader.h">
+      <Filter>format\PMX</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\SjisToUnicode.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\VMDAnimation.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\VMDCameraAnimation.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\VMDFile.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\VPDFile.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\MMDCamera.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\MMDFileString.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\MMDIkSolver.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\MMDMaterial.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\MMDModel.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\MMDMorph.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\MMDNode.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\MMDPhysics.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\PMDFile.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\PMDModel.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\PMXFile.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\PMXModel.h">
+      <Filter>format\PMX\Saba</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\Base\Log.h">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\Base\Path.h">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\Base\Singleton.h">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\Base\Time.h">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\Base\UnicodeUtil.h">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClInclude>
+    <ClInclude Include="format\PMX\Saba\Base\File.h">
+      <Filter>format\PMX\Saba\BASE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\bullet3-2.87\src\btBulletCollisionCommon.h">
+      <Filter>_external\bullet3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\bullet3-2.87\src\btBulletDynamicsCommon.h">
+      <Filter>_external\bullet3</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Logger.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

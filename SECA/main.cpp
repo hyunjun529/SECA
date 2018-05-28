@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 
 
-#include "util/Log.h"
+#include "util/Logger.h"
 
 
 #include "window/Window.h"

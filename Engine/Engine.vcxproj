@@ -91,12 +91,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>../external/gl3w;../external/glfw-3.2.1/include;../external/imgui-1.53;../external/linmath.h;../external/spdlog;../external/tinyobjloader;../external/stb;../external/glm;../external/FBX SDK/2018.1.1/include;./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../external/gl3w;../external/glfw-3.2.1/include;../external/imgui-1.53;../external/linmath.h;../external/spdlog;../external/tinyobjloader;../external/stb;../external/glm;../external/FBX SDK/2018.1.1/include;./;../external/bullet3-2.87/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
-      <AdditionalDependencies>libfbxsdk-md.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../external/FBX SDK/2018.1.1/lib/vs2015/x64/debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-md.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletSoftBody_Debug.lib;LinearMath_Debug.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../external/FBX SDK/2018.1.1/lib/vs2015/x64/debug;../external/bullet3-2.87/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,7 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>../external/gl3w;../external/glfw-3.2.1/include;../external/imgui-1.53;../external/linmath.h;../external/spdlog;../external/tinyobjloader;../external/stb;../external/glm;../external/FBX SDK/2018.1.1/include;./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../external/gl3w;../external/glfw-3.2.1/include;../external/imgui-1.53;../external/linmath.h;../external/spdlog;../external/tinyobjloader;../external/stb;../external/glm;../external/FBX SDK/2018.1.1/include;./;../external/bullet3-2.87/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -129,10 +129,10 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>libfbxsdk-md.lib</AdditionalDependencies>
+      <AdditionalDependencies>libfbxsdk-md.lib;BulletCollision.lib;BulletDynamics.lib;BulletSoftBody.lib;LinearMath.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>../external/FBX SDK/2018.1.1/lib/vs2015/x64/release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../external/FBX SDK/2018.1.1/lib/vs2015/x64/release;../external/bullet3-2.87/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -144,13 +144,38 @@
     <ClCompile Include="format\FBX\FBXLoader.cpp" />
     <ClCompile Include="format\Loader.cpp" />
     <ClCompile Include="format\OBJ\OBJLoader.cpp" />
+    <ClCompile Include="format\PMX\PMXLoader.cpp" />
+    <ClCompile Include="format\PMX\Saba\Base\File.cpp" />
+    <ClCompile Include="format\PMX\Saba\Base\Log.cpp" />
+    <ClCompile Include="format\PMX\Saba\Base\Path.cpp" />
+    <ClCompile Include="format\PMX\Saba\Base\Singleton.cpp" />
+    <ClCompile Include="format\PMX\Saba\Base\Time.cpp" />
+    <ClCompile Include="format\PMX\Saba\Base\UnicodeUtil.cpp" />
+    <ClCompile Include="format\PMX\Saba\MMDCamera.cpp" />
+    <ClCompile Include="format\PMX\Saba\MMDIkSolver.cpp" />
+    <ClCompile Include="format\PMX\Saba\MMDMaterial.cpp" />
+    <ClCompile Include="format\PMX\Saba\MMDModel.cpp" />
+    <ClCompile Include="format\PMX\Saba\MMDMorph.cpp" />
+    <ClCompile Include="format\PMX\Saba\MMDNode.cpp" />
+    <ClCompile Include="format\PMX\Saba\MMDPhysics.cpp" />
+    <ClCompile Include="format\PMX\Saba\PMDFile.cpp" />
+    <ClCompile Include="format\PMX\Saba\PMDModel.cpp" />
+    <ClCompile Include="format\PMX\Saba\PMXFile.cpp" />
+    <ClCompile Include="format\PMX\Saba\PMXModel.cpp" />
+    <ClCompile Include="format\PMX\Saba\SjisToUnicode.cpp" />
+    <ClCompile Include="format\PMX\Saba\VMDAnimation.cpp" />
+    <ClCompile Include="format\PMX\Saba\VMDCameraAnimation.cpp" />
+    <ClCompile Include="format\PMX\Saba\VMDFile.cpp" />
+    <ClCompile Include="format\PMX\Saba\VPDFile.cpp" />
     <ClCompile Include="render\Camera.cpp" />
     <ClCompile Include="render\RenderObject.cpp" />
     <ClCompile Include="render\ShaderUtil.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="util\Log.cpp" />
+    <ClCompile Include="util\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\external\bullet3-2.87\src\btBulletCollisionCommon.h" />
+    <ClInclude Include="..\external\bullet3-2.87\src\btBulletDynamicsCommon.h" />
     <ClInclude Include="..\external\gl3w\GL\gl3w.h" />
     <ClInclude Include="..\external\gl3w\GL\glcorearb.h" />
     <ClInclude Include="..\external\glm\glm\glm.hpp" />
@@ -167,12 +192,36 @@
     <ClInclude Include="format\FBX\FBXLoader.h" />
     <ClInclude Include="format\Loader.h" />
     <ClInclude Include="format\OBJ\OBJLoader.h" />
+    <ClInclude Include="format\PMX\PMXLoader.h" />
+    <ClInclude Include="format\PMX\Saba\Base\File.h" />
+    <ClInclude Include="format\PMX\Saba\Base\Log.h" />
+    <ClInclude Include="format\PMX\Saba\Base\Path.h" />
+    <ClInclude Include="format\PMX\Saba\Base\Singleton.h" />
+    <ClInclude Include="format\PMX\Saba\Base\Time.h" />
+    <ClInclude Include="format\PMX\Saba\Base\UnicodeUtil.h" />
+    <ClInclude Include="format\PMX\Saba\MMDCamera.h" />
+    <ClInclude Include="format\PMX\Saba\MMDFileString.h" />
+    <ClInclude Include="format\PMX\Saba\MMDIkSolver.h" />
+    <ClInclude Include="format\PMX\Saba\MMDMaterial.h" />
+    <ClInclude Include="format\PMX\Saba\MMDModel.h" />
+    <ClInclude Include="format\PMX\Saba\MMDMorph.h" />
+    <ClInclude Include="format\PMX\Saba\MMDNode.h" />
+    <ClInclude Include="format\PMX\Saba\MMDPhysics.h" />
+    <ClInclude Include="format\PMX\Saba\PMDFile.h" />
+    <ClInclude Include="format\PMX\Saba\PMDModel.h" />
+    <ClInclude Include="format\PMX\Saba\PMXFile.h" />
+    <ClInclude Include="format\PMX\Saba\PMXModel.h" />
+    <ClInclude Include="format\PMX\Saba\SjisToUnicode.h" />
+    <ClInclude Include="format\PMX\Saba\VMDAnimation.h" />
+    <ClInclude Include="format\PMX\Saba\VMDCameraAnimation.h" />
+    <ClInclude Include="format\PMX\Saba\VMDFile.h" />
+    <ClInclude Include="format\PMX\Saba\VPDFile.h" />
     <ClInclude Include="render\Camera.h" />
     <ClInclude Include="render\Object.h" />
     <ClInclude Include="render\RenderObject.h" />
     <ClInclude Include="render\ShaderUtil.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="util\Log.h" />
+    <ClInclude Include="util\Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="render\shader\UVonly.frag" />

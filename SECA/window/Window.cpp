@@ -195,12 +195,19 @@ void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const
 
 	// need file format auto detection
 	render::Object target_object;
+	
+	// fbx
+	//target_object = srcWindow->loader->loadFBXObject(str.c_str());
+	//srcWindow->m_objects.push_back(target_object);
+	//srcWindow->render->loadObject(srcWindow->m_objects.back());
 
-	target_object = srcWindow->loader->loadFBXObject(str.c_str());
-	srcWindow->m_objects.push_back(target_object);
-	srcWindow->render->loadObject(srcWindow->m_objects.back());
-
+	// obj
 	//target_object = srcWindow->loader->loadOBJObject(file.c_str(), path.c_str());
 	//srcWindow->m_objects.push_back(target_object);
 	//srcWindow->render->loadObject(srcWindow->m_objects.back());
+
+	// pmx
+	target_object = srcWindow->loader->loadPMXObject(file.c_str(), path.c_str());
+	srcWindow->m_objects.push_back(target_object);
+	srcWindow->render->loadObject(srcWindow->m_objects.back());
 }
