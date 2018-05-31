@@ -145,55 +145,100 @@ void seca::format::FBXLoader::traverseFBXNodes(FbxNode* node)
 
 			// Vertex position
 			std::vector<glm::vec3> tmp_vertex;
-			tmp_vertex.resize(num_vertices);
-			for (int j = 0; j < num_vertices; j++)
-			{
-				FbxVector4 coord = mesh->GetControlPointAt(j); // 4,w = 1.0f
-				tmp_vertex[j].x = (GLfloat)coord.mData[0];
-				tmp_vertex[j].y = (GLfloat)coord.mData[1];
-				tmp_vertex[j].z = (GLfloat)coord.mData[2];
-			}
+			tmp_vertex.resize(num_polygon);
 
-			// Normal
-			const FbxGeometryElementNormal * normals = NULL;
+			// Vertex Normal
 			std::vector<glm::vec3> tmp_normal;
-			tmp_normal.resize(num_vertices);
-			if (has_normal)
-			{
-				normals = mesh->GetElementNormal(0);
-				for (int j = 0; j < num_vertices; j++)
-				{
-					FbxVector4 coord = normals->GetDirectArray().GetAt(j); // 4,w = 1.0f
-					tmp_normal[j].x = (GLfloat)coord.mData[0];
-					tmp_normal[j].y = (GLfloat)coord.mData[1];
-					tmp_normal[j].z = (GLfloat)coord.mData[2];
-				}
-			}
+			tmp_normal.resize(num_polygon);
 
-			// UV
+			// Vertex UV
 			const FbxGeometryElementUV * uvs = NULL;
 			std::vector<glm::vec2> tmp_uv;
-			tmp_uv.resize(num_vertices);
-			if (has_uv)
+			tmp_uv.resize(num_polygon);
+
+			for(int i = 0; i < num_polygon; i++)
 			{
-				uvs = mesh->GetElementUV(0);
-				for (int j = 0; j < num_vertices; j++)
+				for (int j = 0; j < 3; j++)
 				{
-					FbxVector4 coord = uvs->GetDirectArray().GetAt(j); // 4,w = 1.0f
-					tmp_uv[j].x = (GLfloat)coord.mData[0];
-					tmp_uv[j].y = (GLfloat)coord.mData[1];
+					int idx = mesh->GetPolygonVertex(i, j);
+					FbxVector4 vertex_position = mesh->GetControlPointAt(idx);
+					tmp_vertex[i].x = (GLfloat)vertex_position.mData[0];
+					tmp_vertex[i].y = (GLfloat)vertex_position.mData[1];
+					tmp_vertex[i].z = (GLfloat)vertex_position.mData[2];
+
+					if (has_normal)
+					{
+						FbxVector4 vertex_normal;
+						mesh->GetPolygonVertexNormal(i, j, vertex_normal);
+						tmp_normal[i].x = (GLfloat)vertex_normal.mData[0];
+						tmp_normal[i].y = (GLfloat)vertex_normal.mData[1];
+						tmp_normal[i].z = (GLfloat)vertex_normal.mData[2];
+					}
+
+					if (has_uv)
+					{
+						uvs = mesh->GetElementUV(0);
+
+						int inCtrlPointIndex = mesh->GetPolygonVertex(i, j);
+						int inTextureUVIndex = mesh->GetTextureUVIndex(i, j);
+
+						switch (uvs->GetMappingMode())
+						{
+						case FbxGeometryElement::eByControlPoint:
+							switch (uvs->GetReferenceMode())
+							{
+							case FbxGeometryElement::eDirect:
+							{
+								tmp_uv[i].x = static_cast<float>(uvs->GetDirectArray().GetAt(inCtrlPointIndex).mData[0]);
+								tmp_uv[i].y = static_cast<float>(uvs->GetDirectArray().GetAt(inCtrlPointIndex).mData[1]);
+							}
+							break;
+
+							case FbxGeometryElement::eIndexToDirect:
+							{
+								int index = uvs->GetIndexArray().GetAt(inCtrlPointIndex);
+								tmp_uv[i].x = static_cast<float>(uvs->GetDirectArray().GetAt(index).mData[0]);
+								tmp_uv[i].y = static_cast<float>(uvs->GetDirectArray().GetAt(index).mData[1]);
+							}
+							break;
+
+							default:
+								throw std::exception("Invalid Reference");
+							}
+							break;
+
+						case FbxGeometryElement::eByPolygonVertex:
+							switch (uvs->GetReferenceMode())
+							{
+							case FbxGeometryElement::eDirect:
+							case FbxGeometryElement::eIndexToDirect:
+							{
+								tmp_uv[i].x = static_cast<float>(uvs->GetDirectArray().GetAt(inTextureUVIndex).mData[0]);
+								tmp_uv[i].y = static_cast<float>(uvs->GetDirectArray().GetAt(inTextureUVIndex).mData[1]);
+							}
+							break;
+
+							default:
+								throw std::exception("Invalid Reference");
+							}
+							break;
+						}
+					}
+
+					object.bufferPosition.push_back(tmp_vertex[i]);
+					if (has_normal) object.bufferNormal.push_back(tmp_normal[i]);
+					if (has_uv)
+					{
+						tmp_uv[i].x = tmp_uv[i].x;
+						tmp_uv[i].y = abs(1.0f - tmp_uv[i].y);
+
+						//float for_swap = tmp_uv[i].x;
+						//tmp_uv[i].x = tmp_uv[i].y;
+						//tmp_uv[i].y = for_swap;
+
+						object.bufferUV.push_back(tmp_uv[i]);
+					}
 				}
-			}
-
-
-			// Get indices from the mesh
-			int num_indices = mesh->GetPolygonVertexCount();
-			int *indices = mesh->GetPolygonVertices();
-			for (int j = 0; j < num_indices; j++)
-			{
-				object.bufferPosition.push_back(tmp_vertex[indices[j]]);
-				if (has_normal) object.bufferNormal.push_back(tmp_normal[indices[j]]);
-				if (has_uv) object.bufferUV.push_back(tmp_uv[indices[j]]);
 			}
 
 
