@@ -20,9 +20,7 @@ namespace seca
 		private:
 			seca::render::Object object;
 
-			FbxNode *m_pNode;
-			FbxMesh	*m_pMesh;
-
+			FbxManager *lSdkManager;
 
 		public:
 			FBXLoader() {}
