@@ -39,9 +39,13 @@ seca::viewer::Window::Window()
 
 	camera = new render::Camera();
 	camera->SetPanScale(0.01f);
-	camera->SetDollyStartPosition(-1.5f);
-	camera->SetDollyScale(0.1f);
+	camera->SetDollyStartPosition(-15.0f);
+	camera->SetDollyScale(1.0f);
 	camera->SetTrackballScale(0.1f);
+	camera->SetRotation(
+		glm::angleAxis(glm::degrees(135.0f), glm::vec3(1.0f, 0.0f, 0.0f))
+		* glm::angleAxis(glm::degrees(0.75f), glm::vec3(0.0f, 1.0f, 0.0f))
+	);
 	camera->SetCenterOfRotation(glm::vec3(0, 0, 0));
 	camera->Resize(m_windowSizeW, m_windowSizeH);
 
