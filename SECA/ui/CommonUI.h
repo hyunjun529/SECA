@@ -18,7 +18,7 @@ namespace seca
 			CommonUI() {}
 			~CommonUI() {}
 
-			virtual void render() {}
+			virtual void Render() {}
 		};
 	}
 }

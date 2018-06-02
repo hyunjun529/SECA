@@ -27,7 +27,7 @@ namespace seca
 			StatusUI() {}
 			~StatusUI() {}
 
-			void render()
+			void Render()
 			{
 				ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_FirstUseEver);
 				ImGui::Begin("Status UI");

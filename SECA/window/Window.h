@@ -24,7 +24,9 @@
 
 #include "../ui/CommonUI.h"
 #include "../ui/StatusUI.h"
-#include "../ui/ObjectListUI.h"
+#include "../ui/CharacterListUI.h"
+
+#include "../objects/Character.h"
 
 
 namespace seca
@@ -52,7 +54,7 @@ namespace seca
 
 			format::Loader *loader;
 
-			std::vector<render::Object> m_objects;
+			std::vector<objects::Character> m_characters;
 
 
 		public:
@@ -64,7 +66,6 @@ namespace seca
 			void SetWindowSize(int w, int h);
 
 			static void OnMouseButtonCallback(GLFWwindow * window, int button, int action, int mods);
-			static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
 			static void OnScrollCallback(GLFWwindow * window, double offsetx, double offsety);
 			static void WindowSizeCallback(GLFWwindow* window, int width, int height);
 			static void SetDropCallback(GLFWwindow * window, int count, const char** paths);

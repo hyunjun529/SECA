@@ -4,8 +4,8 @@
 #include <string>
 
 
-#include "../visualization/Axis.h"
-#include "../visualization/Grid.h"
+#include "../objects/Axis.h"
+#include "../objects/Grid.h"
 
 
 seca::viewer::Window::~Window()
@@ -59,11 +59,11 @@ seca::viewer::Window::Window()
 	render->Setup(m_window);
 	
 	// create default object
-	visualization::Axis axis;
+	objects::Axis axis;
 	axis.createAxisObject();
 	render->LoadObject(axis.getAxisObject());
 
-	visualization::Grid grid;
+	objects::Grid grid;
 	grid.CreateGridObject();
 	render->LoadObject(grid.getGridObject());
 
@@ -78,9 +78,9 @@ void seca::viewer::Window::Run()
 	uiStatus->param_clearColor = &param_clearColor;
 	m_uis.push_back(uiStatus);
 
-	ui::ObjectListUI *ui_object_list = new ui::ObjectListUI();
-	ui_object_list->m_object_lists = &m_objects;
-	m_uis.push_back(ui_object_list);
+	ui::CharacterListUI *ui_character_list = new ui::CharacterListUI();
+	ui_character_list->m_character_list = &m_characters;
+	m_uis.push_back(ui_character_list);
 
 	// render
 	while (!glfwWindowShouldClose(m_window))
@@ -105,7 +105,7 @@ void seca::viewer::Window::Run()
 
 		// UI
 		ImGui_ImplGlfwGL3_NewFrame();
-		for (ui::CommonUI *ui : m_uis) { ui->render(); }
+		for (ui::CommonUI *ui : m_uis) { ui->Render(); }
 		ImGui::Render();
 
 		glfwSwapBuffers(m_window);
@@ -201,31 +201,29 @@ void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const
 
 	if (!extension.empty() && extension.length() == 3)
 	{
-		render::Object target_object;
+		objects::Character added_character;
+		added_character.character_name = file;
 
-		// hmm...
 		if (extension.compare("obj") == 0)
 		{
-			target_object = srcWindow->loader->LoadOBJObject(file.c_str(), path.c_str());
-			srcWindow->m_objects.push_back(target_object);
-			srcWindow->render->LoadObject(srcWindow->m_objects.back());
+			added_character.object = srcWindow->loader->LoadOBJObject(file.c_str(), path.c_str());
 		}
 		else if (extension.compare("pmx") == 0)
 		{
-			target_object = srcWindow->loader->LoadPMXObject(file.c_str(), path.c_str());
-			srcWindow->m_objects.push_back(target_object);
-			srcWindow->render->LoadObject(srcWindow->m_objects.back());
+			added_character.object = srcWindow->loader->LoadPMXObject(file.c_str(), path.c_str());
 		}
 		else if (extension.compare("fbx") == 0)
 		{
-			target_object = srcWindow->loader->LoadFBXObject(str.c_str());
-			srcWindow->m_objects.push_back(target_object);
-			srcWindow->render->LoadObject(srcWindow->m_objects.back());
+			added_character.object = srcWindow->loader->LoadFBXObject(str.c_str());
 		}
 		else
 		{
 			SECA_CONSOLE_ERROR("{}, {} extension is not support", file.c_str(), extension.c_str());
+			return; // exception?
 		}
+
+		srcWindow->m_characters.push_back(added_character);
+		srcWindow->render->LoadObject(srcWindow->m_characters.back().object);
 	}
 	else
 	{
