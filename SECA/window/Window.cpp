@@ -191,23 +191,41 @@ void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const
 	std::string path = str.substr(0, found + 1);
 	std::string file = str.substr(found + 1);
 
+	GLsizei found_dot = str.find_last_of(".");
+	std::string extension = str.substr(found_dot + 1);
+
 	SECA_CONSOLE_INFO("{}, {}", file.c_str(), path.c_str());
 
-	// need file format auto detection
-	render::Object target_object;
-	
-	// fbx
-	target_object = srcWindow->loader->loadFBXObject(str.c_str());
-	srcWindow->m_objects.push_back(target_object);
-	srcWindow->render->loadObject(srcWindow->m_objects.back());
+	if (!extension.empty() && extension.length() == 3)
+	{
+		render::Object target_object;
 
-	// obj
-	//target_object = srcWindow->loader->loadOBJObject(file.c_str(), path.c_str());
-	//srcWindow->m_objects.push_back(target_object);
-	//srcWindow->render->loadObject(srcWindow->m_objects.back());
-
-	// pmx
-	//target_object = srcWindow->loader->loadPMXObject(file.c_str(), path.c_str());
-	//srcWindow->m_objects.push_back(target_object);
-	//srcWindow->render->loadObject(srcWindow->m_objects.back());
+		// hmm...
+		if (extension.compare("obj") == 0)
+		{
+			target_object = srcWindow->loader->loadOBJObject(file.c_str(), path.c_str());
+			srcWindow->m_objects.push_back(target_object);
+			srcWindow->render->loadObject(srcWindow->m_objects.back());
+		}
+		else if (extension.compare("pmx") == 0)
+		{
+			target_object = srcWindow->loader->loadPMXObject(file.c_str(), path.c_str());
+			srcWindow->m_objects.push_back(target_object);
+			srcWindow->render->loadObject(srcWindow->m_objects.back());
+		}
+		else if (extension.compare("fbx") == 0)
+		{
+			target_object = srcWindow->loader->loadFBXObject(str.c_str());
+			srcWindow->m_objects.push_back(target_object);
+			srcWindow->render->loadObject(srcWindow->m_objects.back());
+		}
+		else
+		{
+			SECA_CONSOLE_ERROR("{}, {} extension is not support", file.c_str(), extension.c_str());
+		}
+	}
+	else
+	{
+		SECA_CONSOLE_ERROR("{} need extension(.obj, .pmx, .fbx)", file.c_str());
+	}
 }
