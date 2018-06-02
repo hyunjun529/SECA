@@ -4,8 +4,8 @@
 #include <string>
 
 
-#include "../visualization/Axis.h"
-#include "../visualization/Grid.h"
+#include "../objects/Axis.h"
+#include "../objects/Grid.h"
 
 
 seca::viewer::Window::~Window()
@@ -19,7 +19,7 @@ seca::viewer::Window::Window()
 {
 	if (!glfwInit()) assert("failed glfwinit");
 
-	m_window = glfwCreateWindow(m_windowSizeW, m_windowSizeH, windowTitle, NULL, NULL);
+	m_window = glfwCreateWindow(m_window_size_width, m_window_size_height, windowTitle, NULL, NULL);
 
 	if (!m_window)
 	{
@@ -39,30 +39,33 @@ seca::viewer::Window::Window()
 
 	camera = new render::Camera();
 	camera->SetPanScale(0.01f);
-	camera->SetDollyStartPosition(-1.5f);
-	camera->SetDollyScale(0.1f);
+	camera->SetDollyStartPosition(-15.0f);
+	camera->SetDollyScale(1.0f);
 	camera->SetTrackballScale(0.1f);
+	camera->SetRotation(
+		glm::angleAxis(glm::degrees(135.0f), glm::vec3(1.0f, 0.0f, 0.0f))
+		* glm::angleAxis(glm::degrees(0.75f), glm::vec3(0.0f, 1.0f, 0.0f))
+	);
 	camera->SetCenterOfRotation(glm::vec3(0, 0, 0));
-	camera->Resize(m_windowSizeW, m_windowSizeH);
+	camera->Resize(m_window_size_width, m_window_size_height);
 
 	glfwSetWindowUserPointer(m_window, this);
 	glfwSetMouseButtonCallback(m_window, OnMouseButtonCallback);
-	glfwSetCursorPosCallback(m_window, CursorPositionCallback);
 	glfwSetScrollCallback(m_window, OnScrollCallback);
 	glfwSetWindowSizeCallback(m_window, WindowSizeCallback);
 	glfwSetDropCallback(m_window, SetDropCallback);
 
 	render = new render::RenderObject();
-	render->setup(m_window);
+	render->Setup(m_window);
 	
 	// create default object
-	visualization::Axis axis;
+	objects::Axis axis;
 	axis.createAxisObject();
-	render->loadObject(axis.getAxisObject());
+	render->LoadObject(axis.getAxisObject());
 
-	visualization::Grid grid;
-	grid.createGridObject();
-	render->loadObject(grid.getGridObject());
+	objects::Grid grid;
+	grid.CreateGridObject();
+	render->LoadObject(grid.getGridObject());
 
 	// loader
 	loader = new format::Loader();
@@ -75,15 +78,15 @@ void seca::viewer::Window::Run()
 	uiStatus->param_clearColor = &param_clearColor;
 	m_uis.push_back(uiStatus);
 
-	ui::ObjectListUI *ui_object_list = new ui::ObjectListUI();
-	ui_object_list->m_objectLists = &m_objects;
-	m_uis.push_back(ui_object_list);
+	ui::CharacterListUI *ui_character_list = new ui::CharacterListUI();
+	ui_character_list->m_character_list = &m_characters;
+	m_uis.push_back(ui_character_list);
 
 	// render
 	while (!glfwWindowShouldClose(m_window))
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, m_windowSizeW, m_windowSizeH);
+		glViewport(0, 0, m_window_size_width, m_window_size_height);
 		glClearColor(
 			param_clearColor.x,
 			param_clearColor.y,
@@ -92,19 +95,28 @@ void seca::viewer::Window::Run()
 		);
 
 		// Camera
+		double xpos, ypos;
+		glfwGetCursorPos(m_window, &xpos, &ypos);
+		camera->ProcessMouseMotion(xpos, ypos);
 		camera->ContinueRotation();
 
 		// render
-		render->render(camera->GetWorldViewMatrix());
+		render->Render(camera->GetWorldViewMatrix());
 
 		// UI
 		ImGui_ImplGlfwGL3_NewFrame();
-		for (ui::CommonUI *ui : m_uis) { ui->render(); }
+		for (ui::CommonUI *ui : m_uis) { ui->Render(); }
 		ImGui::Render();
 
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
 	}
+}
+
+void seca::viewer::Window::SetWindowSize(int width, int height)
+{
+	m_window_size_width = width;
+	m_window_size_height = height;
 }
 
 void seca::viewer::Window::OnMouseButtonCallback(GLFWwindow * window, int button, int action, int mods)
@@ -113,45 +125,34 @@ void seca::viewer::Window::OnMouseButtonCallback(GLFWwindow * window, int button
 
 	ImGui_ImplGlfwGL3_MouseButtonCallback(window, button, action, mods);
 
-	glfwGetWindowUserPointer(window);
+	double xpos, ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
 
-	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+	if(srcWindow != nullptr)
 	{
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-
-		srcWindow->camera->StartMouseRotation(xpos, ypos);
+		if (action == GLFW_PRESS && !ImGui::IsMouseHoveringAnyWindow())
+		{
+			if (button == GLFW_MOUSE_BUTTON_RIGHT)
+			{
+				srcWindow->camera->StartMouseRotation(xpos, ypos);
+			}
+			if (button == GLFW_MOUSE_BUTTON_LEFT || button == GLFW_MOUSE_BUTTON_MIDDLE)
+			{
+				srcWindow->camera->StartMousePan(xpos, ypos);
+			}
+		}
+		else if (action == GLFW_RELEASE)
+		{
+			if (button == GLFW_MOUSE_BUTTON_RIGHT)
+			{
+				srcWindow->camera->EndMouseRotation(xpos, ypos);
+			}
+			if (button == GLFW_MOUSE_BUTTON_LEFT || button == GLFW_MOUSE_BUTTON_MIDDLE)
+			{
+				srcWindow->camera->EndMousePan(xpos, ypos);
+			}
+		}
 	}
-	else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE)
-	{
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-		srcWindow->camera->EndMouseRotation(xpos, ypos);
-	}
-
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
-	{
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-
-		srcWindow->camera->StartMousePan(xpos, ypos);
-	}
-	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
-	{
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-
-		srcWindow->camera->EndMousePan(xpos, ypos);
-	}
-}
-
-void seca::viewer::Window::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos)
-{
-	Window *srcWindow = (Window*)glfwGetWindowUserPointer(window);
-
-	// need to check active imgui
-
-	srcWindow->camera->ProcessMouseMotion(xpos, ypos);
 }
 
 void seca::viewer::Window::OnScrollCallback(GLFWwindow * window, double offsetx, double offsety)
@@ -160,9 +161,10 @@ void seca::viewer::Window::OnScrollCallback(GLFWwindow * window, double offsetx,
 
 	ImGui_ImplGlfwGL3_ScrollCallback(window, offsetx, offsety);
 
-	glfwGetWindowUserPointer(window);
-
-	srcWindow->camera->UpdateDolly(offsety);
+	if (srcWindow != nullptr)
+	{
+		srcWindow->camera->UpdateDolly(offsety);
+	}
 }
 
 void seca::viewer::Window::WindowSizeCallback(GLFWwindow* window, int width, int height)
@@ -172,6 +174,7 @@ void seca::viewer::Window::WindowSizeCallback(GLFWwindow* window, int width, int
 	SECA_CONSOLE_INFO("resize window : {} x {}", width, height);
 
 	srcWindow->camera->Resize(width, height);
+	srcWindow->SetWindowSize(width, height);
 }
 
 void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const char** paths)
@@ -191,23 +194,51 @@ void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const
 	std::string path = str.substr(0, found + 1);
 	std::string file = str.substr(found + 1);
 
+	GLsizei found_dot = str.find_last_of(".");
+	std::string extension = str.substr(found_dot + 1);
+
 	SECA_CONSOLE_INFO("{}, {}", file.c_str(), path.c_str());
 
-	// need file format auto detection
-	render::Object target_object;
-	
-	// fbx
-	target_object = srcWindow->loader->loadFBXObject(str.c_str());
-	srcWindow->m_objects.push_back(target_object);
-	srcWindow->render->loadObject(srcWindow->m_objects.back());
+	if (!extension.empty() && extension.length() == 3)
+	{
+		std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
 
-	// obj
-	//target_object = srcWindow->loader->loadOBJObject(file.c_str(), path.c_str());
-	//srcWindow->m_objects.push_back(target_object);
-	//srcWindow->render->loadObject(srcWindow->m_objects.back());
+		objects::Character added_character;
+		added_character.character_name = file;
 
-	// pmx
-	//target_object = srcWindow->loader->loadPMXObject(file.c_str(), path.c_str());
-	//srcWindow->m_objects.push_back(target_object);
-	//srcWindow->render->loadObject(srcWindow->m_objects.back());
+		if (extension.compare("obj") == 0)
+		{
+			added_character.character_type = objects::Character::type::OBJ;
+			added_character.object = srcWindow->loader->LoadOBJObject(file.c_str(), path.c_str());
+		}
+		else if (extension.compare("pmx") == 0)
+		{
+			added_character.character_type = objects::Character::type::PMX;
+			added_character.object = srcWindow->loader->LoadPMXObject(file.c_str(), path.c_str());
+		}
+		else if (extension.compare("fbx") == 0)
+		{
+			added_character.character_type = objects::Character::type::FBX;
+			added_character.object = srcWindow->loader->LoadFBXObject(str.c_str());
+		}
+		else
+		{
+			SECA_CONSOLE_ERROR("{}, {} extension is not support", file.c_str(), extension.c_str());
+			return; // exception?
+		}
+
+		srcWindow->m_characters.push_back(added_character);
+		srcWindow->render->LoadObject(srcWindow->m_characters.back().object);
+
+		if (extension.compare("obj") != 0)
+		{
+			ui::ControlCharacterAnimationUI *ui_contorl_character_animation = new ui::ControlCharacterAnimationUI();
+			ui_contorl_character_animation->m_character = &srcWindow->m_characters.back();
+			srcWindow->m_uis.push_back(ui_contorl_character_animation);
+		}
+	}
+	else
+	{
+		SECA_CONSOLE_ERROR("{} need extension(.obj, .pmx, .fbx)", file.c_str());
+	}
 }

@@ -54,12 +54,12 @@ namespace seca
 			RenderObject();
 			~RenderObject();
 
-			void setup(GLFWwindow *_window);
-			void clear();
-			void render();
-			void render(const glm::mat4 &MVP);
+			void Setup(GLFWwindow *_window);
+			void Clear();
+			void Render();
+			void Render(const glm::mat4 &MVP);
 
-			void loadObject(render::Object object);
+			void LoadObject(render::Object object);
 		};
 	}
 }

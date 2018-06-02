@@ -1,5 +1,5 @@
-#ifndef SECA_VISUALIZATION_GRID_H_
-#define SECA_VISUALIZATION_GRID_H_
+#ifndef SECA_OBJECTS_GRID_H_
+#define SECA_OBJECTS_GRID_H_
 
 
 #include <GL/gl3w.h>
@@ -11,7 +11,7 @@
 
 namespace seca
 {
-	namespace visualization
+	namespace objects
 	{
 		class Grid
 		{
@@ -28,10 +28,10 @@ namespace seca
 			Grid() {}
 			~Grid() {}
 
-			void createGridObject();
+			void CreateGridObject();
 			render::Object getGridObject();
 		};
 	}
 }
 
-#endif // SECA_VISUALIZATION_GRID_H_
+#endif // SECA_OBJECTS_GRID_H_

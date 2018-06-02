@@ -27,7 +27,7 @@ namespace seca
 		public:
 			OBJLoader() {}
 			~OBJLoader() {}
-			render::Object loadOBJ(const char *_file, const char *_path);
+			render::Object LoadOBJ(const char *_file, const char *_path);
 			void CalcNormal(glm::vec3 N, glm::vec3 v0, glm::vec3 v1, glm::vec3 v2);
 		};
 	}

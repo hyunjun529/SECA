@@ -144,6 +144,11 @@ void seca::render::Camera::UpdateTrackball()
 
 	rot_incr_ = glm::angleAxis(angle, axis_in_camera_coord);		// note
 
+	//glm::mat4 rot_x = glm::rotate(dx_ * trackball_scale_, glm::vec3(0.0f, 1.0f, 0.f));
+	//glm::mat4 rot_y = glm::rotate(dy_ * trackball_scale_, glm::vec3(1.0f, 0.0f, 0.0f));
+	//const glm::quat rot_yx = glm::quat_cast(rot_y * rot_x);
+	//rot_incr_ = rot_yx;
+
 	rot_ = rot_incr_ * rot_;
 }
 
@@ -212,6 +217,11 @@ void seca::render::Camera::SetDollyStartPosition(float pos)
 void seca::render::Camera::SetPanScale(float scale)
 {
 	pan_scale_ = scale;
+}
+
+void seca::render::Camera::SetRotation(const glm::quat& q)
+{
+	rot_ = q;
 }
 
 void seca::render::Camera::SetCenterOfRotation(const glm::vec3& c)

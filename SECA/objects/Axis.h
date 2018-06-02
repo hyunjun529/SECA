@@ -1,5 +1,5 @@
-#ifndef SECA_VISUALIZATION_AXIS_H_
-#define SECA_VISUALIZATION_AXIS_H_
+#ifndef SECA_OBJECTS_AXIS_H_
+#define SECA_OBJECTS_AXIS_H_
 
 
 #include <GL/gl3w.h>
@@ -11,7 +11,7 @@
 
 namespace seca
 {
-	namespace visualization
+	namespace objects
 	{
 		class Axis
 		{
@@ -32,4 +32,4 @@ namespace seca
 	}
 }
 
-#endif // SECA_VISUALIZATION_GRID_H_
+#endif // SECA_OBJECTS_AXIS_H_

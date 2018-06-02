@@ -21,13 +21,13 @@ namespace seca
 			ImVec4 *param_clearColor;
 
 		private:
-			std::string m_uiTitle = "Status";
+			std::string m_ui_title = "Status";
 
 		public: 
 			StatusUI() {}
 			~StatusUI() {}
 
-			void render()
+			void Render()
 			{
 				ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_FirstUseEver);
 				ImGui::Begin("Status UI");

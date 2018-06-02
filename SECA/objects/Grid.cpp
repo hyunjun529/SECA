@@ -1,11 +1,7 @@
 #include "Grid.h"
 
 
-#include <GL/gl3w.h>
-#include <glm/glm.hpp>
-
-
-void seca::visualization::Grid::createGridObject()
+void seca::objects::Grid::CreateGridObject()
 {
 	glm::vec3 v[2];
 
@@ -35,7 +31,7 @@ void seca::visualization::Grid::createGridObject()
 	}
 }
 
-seca::render::Object seca::visualization::Grid::getGridObject()
+seca::render::Object seca::objects::Grid::getGridObject()
 {
 	return m_grid_object;
 }

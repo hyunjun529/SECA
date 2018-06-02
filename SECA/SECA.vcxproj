@@ -131,16 +131,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="visualization\Axis.cpp" />
-    <ClCompile Include="visualization\Grid.cpp" />
+    <ClCompile Include="objects\Axis.cpp" />
+    <ClCompile Include="objects\Character.cpp" />
+    <ClCompile Include="objects\Grid.cpp" />
     <ClCompile Include="window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="objects\Axis.h" />
+    <ClInclude Include="objects\Character.h" />
+    <ClInclude Include="objects\Grid.h" />
     <ClInclude Include="ui\CommonUI.h" />
-    <ClInclude Include="ui\ObjectListUI.h" />
+    <ClInclude Include="ui\CharacterListUI.h" />
+    <ClInclude Include="ui\ControlChracterAnimation.h" />
     <ClInclude Include="ui\StatusUI.h" />
-    <ClInclude Include="visualization\Axis.h" />
-    <ClInclude Include="visualization\Grid.h" />
     <ClInclude Include="window\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

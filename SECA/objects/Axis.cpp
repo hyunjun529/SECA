@@ -1,11 +1,7 @@
 #include "Axis.h"
 
 
-#include <GL/gl3w.h>
-#include <glm/glm.hpp>
-
-
-void seca::visualization::Axis::createAxisObject()
+void seca::objects::Axis::createAxisObject()
 {
 	glm::vec3 v[2];
 
@@ -26,7 +22,7 @@ void seca::visualization::Axis::createAxisObject()
 	m_axis_object.bufferPosition.push_back(v[1]);
 }
 
-const seca::render::Object seca::visualization::Axis::getAxisObject()
+const seca::render::Object seca::objects::Axis::getAxisObject()
 {
 	return m_axis_object;
 }

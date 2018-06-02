@@ -26,7 +26,7 @@ namespace seca
 			PMXLoader() {}
 			~PMXLoader() {}
 
-			render::Object loadPMX(const char *_file, const char *_path);
+			render::Object LoadPMX(const char *_file, const char *_path);
 		};
 	}
 }

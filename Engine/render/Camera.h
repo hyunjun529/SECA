@@ -4,6 +4,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 
 
@@ -66,6 +67,7 @@ namespace seca
 			void SetDollyStartPosition(float pos);
 			void SetPanScale(float scale);
 			void SetProjection(const float fov, const float aspect, const float zNear, const float zFar);
+			void SetRotation(const glm::quat& q);
 			void SetCenterOfRotation(const glm::vec3& c);
 			void SetWindowSize(const int& _w, const int & _h);
 
