@@ -24,6 +24,11 @@ namespace seca
 			Character() {}
 			~Character() {}
 
+			enum type {
+				OBJ,
+				PMX,
+				FBX
+			} character_type;
 
 			std::string character_name = "unknown";
 			render::Object object;

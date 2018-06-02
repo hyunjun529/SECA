@@ -48,5 +48,8 @@
     <ClInclude Include="ui\CharacterListUI.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="ui\ControlChracterAnimation.h">
+      <Filter>ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

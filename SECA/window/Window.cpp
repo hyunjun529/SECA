@@ -201,19 +201,24 @@ void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const
 
 	if (!extension.empty() && extension.length() == 3)
 	{
+		std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+
 		objects::Character added_character;
 		added_character.character_name = file;
 
 		if (extension.compare("obj") == 0)
 		{
+			added_character.character_type = objects::Character::type::OBJ;
 			added_character.object = srcWindow->loader->LoadOBJObject(file.c_str(), path.c_str());
 		}
 		else if (extension.compare("pmx") == 0)
 		{
+			added_character.character_type = objects::Character::type::PMX;
 			added_character.object = srcWindow->loader->LoadPMXObject(file.c_str(), path.c_str());
 		}
 		else if (extension.compare("fbx") == 0)
 		{
+			added_character.character_type = objects::Character::type::FBX;
 			added_character.object = srcWindow->loader->LoadFBXObject(str.c_str());
 		}
 		else
@@ -224,6 +229,13 @@ void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const
 
 		srcWindow->m_characters.push_back(added_character);
 		srcWindow->render->LoadObject(srcWindow->m_characters.back().object);
+
+		if (extension.compare("obj") != 0)
+		{
+			ui::ControlCharacterAnimationUI *ui_contorl_character_animation = new ui::ControlCharacterAnimationUI();
+			ui_contorl_character_animation->m_character = &srcWindow->m_characters.back();
+			srcWindow->m_uis.push_back(ui_contorl_character_animation);
+		}
 	}
 	else
 	{

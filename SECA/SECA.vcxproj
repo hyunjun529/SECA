@@ -142,6 +142,7 @@
     <ClInclude Include="objects\Grid.h" />
     <ClInclude Include="ui\CommonUI.h" />
     <ClInclude Include="ui\CharacterListUI.h" />
+    <ClInclude Include="ui\ControlChracterAnimation.h" />
     <ClInclude Include="ui\StatusUI.h" />
     <ClInclude Include="window\Window.h" />
   </ItemGroup>

@@ -25,6 +25,7 @@
 #include "../ui/CommonUI.h"
 #include "../ui/StatusUI.h"
 #include "../ui/CharacterListUI.h"
+#include "../ui/ControlChracterAnimation.h"
 
 #include "../objects/Character.h"
 
