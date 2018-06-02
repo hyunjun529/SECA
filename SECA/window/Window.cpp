@@ -19,7 +19,7 @@ seca::viewer::Window::Window()
 {
 	if (!glfwInit()) assert("failed glfwinit");
 
-	m_window = glfwCreateWindow(m_windowSizeW, m_windowSizeH, windowTitle, NULL, NULL);
+	m_window = glfwCreateWindow(m_window_size_width, m_window_size_height, windowTitle, NULL, NULL);
 
 	if (!m_window)
 	{
@@ -47,7 +47,7 @@ seca::viewer::Window::Window()
 		* glm::angleAxis(glm::degrees(0.75f), glm::vec3(0.0f, 1.0f, 0.0f))
 	);
 	camera->SetCenterOfRotation(glm::vec3(0, 0, 0));
-	camera->Resize(m_windowSizeW, m_windowSizeH);
+	camera->Resize(m_window_size_width, m_window_size_height);
 
 	glfwSetWindowUserPointer(m_window, this);
 	glfwSetMouseButtonCallback(m_window, OnMouseButtonCallback);
@@ -56,16 +56,16 @@ seca::viewer::Window::Window()
 	glfwSetDropCallback(m_window, SetDropCallback);
 
 	render = new render::RenderObject();
-	render->setup(m_window);
+	render->Setup(m_window);
 	
 	// create default object
 	visualization::Axis axis;
 	axis.createAxisObject();
-	render->loadObject(axis.getAxisObject());
+	render->LoadObject(axis.getAxisObject());
 
 	visualization::Grid grid;
-	grid.createGridObject();
-	render->loadObject(grid.getGridObject());
+	grid.CreateGridObject();
+	render->LoadObject(grid.getGridObject());
 
 	// loader
 	loader = new format::Loader();
@@ -79,14 +79,14 @@ void seca::viewer::Window::Run()
 	m_uis.push_back(uiStatus);
 
 	ui::ObjectListUI *ui_object_list = new ui::ObjectListUI();
-	ui_object_list->m_objectLists = &m_objects;
+	ui_object_list->m_object_lists = &m_objects;
 	m_uis.push_back(ui_object_list);
 
 	// render
 	while (!glfwWindowShouldClose(m_window))
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, m_windowSizeW, m_windowSizeH);
+		glViewport(0, 0, m_window_size_width, m_window_size_height);
 		glClearColor(
 			param_clearColor.x,
 			param_clearColor.y,
@@ -101,7 +101,7 @@ void seca::viewer::Window::Run()
 		camera->ContinueRotation();
 
 		// render
-		render->render(camera->GetWorldViewMatrix());
+		render->Render(camera->GetWorldViewMatrix());
 
 		// UI
 		ImGui_ImplGlfwGL3_NewFrame();
@@ -113,10 +113,10 @@ void seca::viewer::Window::Run()
 	}
 }
 
-void seca::viewer::Window::setWindowSize(int width, int height)
+void seca::viewer::Window::SetWindowSize(int width, int height)
 {
-	m_windowSizeW = width;
-	m_windowSizeH = height;
+	m_window_size_width = width;
+	m_window_size_height = height;
 }
 
 void seca::viewer::Window::OnMouseButtonCallback(GLFWwindow * window, int button, int action, int mods)
@@ -174,7 +174,7 @@ void seca::viewer::Window::WindowSizeCallback(GLFWwindow* window, int width, int
 	SECA_CONSOLE_INFO("resize window : {} x {}", width, height);
 
 	srcWindow->camera->Resize(width, height);
-	srcWindow->setWindowSize(width, height);
+	srcWindow->SetWindowSize(width, height);
 }
 
 void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const char** paths)
@@ -206,21 +206,21 @@ void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const
 		// hmm...
 		if (extension.compare("obj") == 0)
 		{
-			target_object = srcWindow->loader->loadOBJObject(file.c_str(), path.c_str());
+			target_object = srcWindow->loader->LoadOBJObject(file.c_str(), path.c_str());
 			srcWindow->m_objects.push_back(target_object);
-			srcWindow->render->loadObject(srcWindow->m_objects.back());
+			srcWindow->render->LoadObject(srcWindow->m_objects.back());
 		}
 		else if (extension.compare("pmx") == 0)
 		{
-			target_object = srcWindow->loader->loadPMXObject(file.c_str(), path.c_str());
+			target_object = srcWindow->loader->LoadPMXObject(file.c_str(), path.c_str());
 			srcWindow->m_objects.push_back(target_object);
-			srcWindow->render->loadObject(srcWindow->m_objects.back());
+			srcWindow->render->LoadObject(srcWindow->m_objects.back());
 		}
 		else if (extension.compare("fbx") == 0)
 		{
-			target_object = srcWindow->loader->loadFBXObject(str.c_str());
+			target_object = srcWindow->loader->LoadFBXObject(str.c_str());
 			srcWindow->m_objects.push_back(target_object);
-			srcWindow->render->loadObject(srcWindow->m_objects.back());
+			srcWindow->render->LoadObject(srcWindow->m_objects.back());
 		}
 		else
 		{

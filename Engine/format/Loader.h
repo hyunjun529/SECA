@@ -22,9 +22,9 @@ namespace seca
 			Loader() {}
 			~Loader() {}
 
-			render::Object loadFBXObject(const char *_file);
-			render::Object loadOBJObject(const char *_file, const char *_path);
-			render::Object loadPMXObject(const char *_file, const char *_path);
+			render::Object LoadFBXObject(const char *_file);
+			render::Object LoadOBJObject(const char *_file, const char *_path);
+			render::Object LoadPMXObject(const char *_file, const char *_path);
 		};
 	}
 }

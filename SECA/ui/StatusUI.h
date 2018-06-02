@@ -21,7 +21,7 @@ namespace seca
 			ImVec4 *param_clearColor;
 
 		private:
-			std::string m_uiTitle = "Status";
+			std::string m_ui_title = "Status";
 
 		public: 
 			StatusUI() {}

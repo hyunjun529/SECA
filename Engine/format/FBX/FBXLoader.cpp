@@ -11,7 +11,7 @@ so i can't use Log.
 //#include "util/Logger.h"
 
 
-seca::render::Object seca::format::FBXLoader::loadFBX(const char *_file)
+seca::render::Object seca::format::FBXLoader::LoadFBX(const char *_file)
 {
 	lSdkManager = FbxManager::Create();
 
@@ -104,7 +104,7 @@ seca::render::Object seca::format::FBXLoader::loadFBX(const char *_file)
 	FbxNode* lRootNode = lScene->GetRootNode();
 	if (lRootNode)
 	{
-		traverseFBXNodes(lRootNode);
+		TraverseFBXNodes(lRootNode);
 	}
 	lSdkManager->Destroy();
 
@@ -114,7 +114,7 @@ seca::render::Object seca::format::FBXLoader::loadFBX(const char *_file)
 
 
 // ref : https://github.com/suitengu/fbxDemo/blob/master/fbxDemo/fbxDemoApp.cpp
-void seca::format::FBXLoader::traverseFBXNodes(FbxNode* node)
+void seca::format::FBXLoader::TraverseFBXNodes(FbxNode* node)
 {
 	const char* nodeName = node->GetName();
 	printf("node name: %s\n", nodeName);
@@ -317,6 +317,6 @@ void seca::format::FBXLoader::traverseFBXNodes(FbxNode* node)
 				}
 			}
 		}
-		this->traverseFBXNodes(childNode);
+		this->TraverseFBXNodes(childNode);
 	}
 }

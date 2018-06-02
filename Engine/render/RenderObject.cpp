@@ -9,7 +9,7 @@ seca::render::RenderObject::~RenderObject()
 	DestroyVBO();
 }
 
-void seca::render::RenderObject::setup(GLFWwindow *_window)
+void seca::render::RenderObject::Setup(GLFWwindow *_window)
 {
 	m_window = _window;
 
@@ -31,25 +31,25 @@ void seca::render::RenderObject::setup(GLFWwindow *_window)
 	CreateShaders();
 }
 
-void seca::render::RenderObject::clear()
+void seca::render::RenderObject::Clear()
 {
 	DestroyVBO();
 	CreateVBO();
 }
 
-void seca::render::RenderObject::loadObject(render::Object object)
+void seca::render::RenderObject::LoadObject(render::Object object)
 {
 	m_objects.push_back(object);
 
 	CreateVBO();
 }
 
-void seca::render::RenderObject::render()
+void seca::render::RenderObject::Render()
 {
-	render(glm::mat4x4(1.0));
+	Render(glm::mat4x4(1.0));
 }
 
-void seca::render::RenderObject::render(const glm::mat4 &MVP)
+void seca::render::RenderObject::Render(const glm::mat4 &MVP)
 {
 	glfwMakeContextCurrent(m_window);
 

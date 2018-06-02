@@ -1,11 +1,7 @@
 #include "Grid.h"
 
 
-#include <GL/gl3w.h>
-#include <glm/glm.hpp>
-
-
-void seca::visualization::Grid::createGridObject()
+void seca::visualization::Grid::CreateGridObject()
 {
 	glm::vec3 v[2];
 

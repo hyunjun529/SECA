@@ -1,10 +1,6 @@
 #include "Axis.h"
 
 
-#include <GL/gl3w.h>
-#include <glm/glm.hpp>
-
-
 void seca::visualization::Axis::createAxisObject()
 {
 	glm::vec3 v[2];

@@ -40,8 +40,8 @@ namespace seca
 
 
 		private:
-			int m_windowSizeW = 1280;
-			int m_windowSizeH = 1024;
+			int m_window_size_width = 1280;
+			int m_window_size_height = 1024;
 
 			GLFWwindow *m_window;
 
@@ -61,7 +61,7 @@ namespace seca
 
 			void Run();
 
-			void setWindowSize(int w, int h);
+			void SetWindowSize(int w, int h);
 
 			static void OnMouseButtonCallback(GLFWwindow * window, int button, int action, int mods);
 			static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);

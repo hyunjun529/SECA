@@ -12,7 +12,7 @@ namespace seca
 		class CommonUI
 		{
 		private:
-			std::string m_uiTitle = "not define";
+			std::string m_ui_title = "not define";
 
 		public:
 			CommonUI() {}

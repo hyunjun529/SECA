@@ -22,10 +22,10 @@ namespace seca
 		class ObjectListUI : public CommonUI
 		{
 		public:
-			std::vector<render::Object> *m_objectLists;
+			std::vector<render::Object> *m_object_lists;
 
 		private:
-			std::string m_uiTitle = "ObjectList";
+			std::string m_ui_title = "ObjectList";
 
 
 		public: 
@@ -39,8 +39,8 @@ namespace seca
 				
 				std::vector<render::Object>::iterator itr;
 
-				for (itr = m_objectLists->begin();
-					itr != m_objectLists->end();
+				for (itr = m_object_lists->begin();
+					itr != m_object_lists->end();
 					itr++)
 				{
 					ImGui::Text("test");

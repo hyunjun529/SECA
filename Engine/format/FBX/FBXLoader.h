@@ -26,8 +26,8 @@ namespace seca
 			FBXLoader() {}
 			~FBXLoader() {}
 
-			render::Object loadFBX(const char *_file);
-			void traverseFBXNodes(FbxNode* node);
+			render::Object LoadFBX(const char *_file);
+			void TraverseFBXNodes(FbxNode* node);
 		};
 	}
 }

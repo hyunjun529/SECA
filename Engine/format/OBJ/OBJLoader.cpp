@@ -4,7 +4,7 @@
 #include "util/Logger.h"
 
 
-seca::render::Object seca::format::OBJLoader::loadOBJ(const char *_file, const char *_path)
+seca::render::Object seca::format::OBJLoader::LoadOBJ(const char *_file, const char *_path)
 {
 	seca::render::Object o;
 	o.vaoId = 0;

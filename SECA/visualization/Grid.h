@@ -28,7 +28,7 @@ namespace seca
 			Grid() {}
 			~Grid() {}
 
-			void createGridObject();
+			void CreateGridObject();
 			render::Object getGridObject();
 		};
 	}

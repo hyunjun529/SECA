@@ -1,10 +1,6 @@
 #include "Camera.h"
 
 
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/transform.hpp>
-
-
 seca::render::Camera::Camera()
 	: is_trackball_active_(false), is_dolly_active_(false), is_pan_active_(false)
 {
