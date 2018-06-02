@@ -47,7 +47,6 @@ seca::viewer::Window::Window()
 
 	glfwSetWindowUserPointer(m_window, this);
 	glfwSetMouseButtonCallback(m_window, OnMouseButtonCallback);
-	glfwSetCursorPosCallback(m_window, CursorPositionCallback);
 	glfwSetScrollCallback(m_window, OnScrollCallback);
 	glfwSetWindowSizeCallback(m_window, WindowSizeCallback);
 	glfwSetDropCallback(m_window, SetDropCallback);
@@ -92,6 +91,9 @@ void seca::viewer::Window::Run()
 		);
 
 		// Camera
+		double xpos, ypos;
+		glfwGetCursorPos(m_window, &xpos, &ypos);
+		camera->ProcessMouseMotion(xpos, ypos);
 		camera->ContinueRotation();
 
 		// render
@@ -107,51 +109,46 @@ void seca::viewer::Window::Run()
 	}
 }
 
+void seca::viewer::Window::setWindowSize(int width, int height)
+{
+	m_windowSizeW = width;
+	m_windowSizeH = height;
+}
+
 void seca::viewer::Window::OnMouseButtonCallback(GLFWwindow * window, int button, int action, int mods)
 {
 	Window *srcWindow = (Window*)glfwGetWindowUserPointer(window);
 
 	ImGui_ImplGlfwGL3_MouseButtonCallback(window, button, action, mods);
 
-	glfwGetWindowUserPointer(window);
+	double xpos, ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
 
-	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+	if(srcWindow != nullptr)
 	{
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-
-		srcWindow->camera->StartMouseRotation(xpos, ypos);
+		if (action == GLFW_PRESS && !ImGui::IsMouseHoveringAnyWindow())
+		{
+			if (button == GLFW_MOUSE_BUTTON_RIGHT)
+			{
+				srcWindow->camera->StartMouseRotation(xpos, ypos);
+			}
+			if (button == GLFW_MOUSE_BUTTON_LEFT || button == GLFW_MOUSE_BUTTON_MIDDLE)
+			{
+				srcWindow->camera->StartMousePan(xpos, ypos);
+			}
+		}
+		else if (action == GLFW_RELEASE)
+		{
+			if (button == GLFW_MOUSE_BUTTON_RIGHT)
+			{
+				srcWindow->camera->EndMouseRotation(xpos, ypos);
+			}
+			if (button == GLFW_MOUSE_BUTTON_LEFT || button == GLFW_MOUSE_BUTTON_MIDDLE)
+			{
+				srcWindow->camera->EndMousePan(xpos, ypos);
+			}
+		}
 	}
-	else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE)
-	{
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-		srcWindow->camera->EndMouseRotation(xpos, ypos);
-	}
-
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
-	{
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-
-		srcWindow->camera->StartMousePan(xpos, ypos);
-	}
-	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
-	{
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-
-		srcWindow->camera->EndMousePan(xpos, ypos);
-	}
-}
-
-void seca::viewer::Window::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos)
-{
-	Window *srcWindow = (Window*)glfwGetWindowUserPointer(window);
-
-	// need to check active imgui
-
-	srcWindow->camera->ProcessMouseMotion(xpos, ypos);
 }
 
 void seca::viewer::Window::OnScrollCallback(GLFWwindow * window, double offsetx, double offsety)
@@ -160,9 +157,10 @@ void seca::viewer::Window::OnScrollCallback(GLFWwindow * window, double offsetx,
 
 	ImGui_ImplGlfwGL3_ScrollCallback(window, offsetx, offsety);
 
-	glfwGetWindowUserPointer(window);
-
-	srcWindow->camera->UpdateDolly(offsety);
+	if (srcWindow != nullptr)
+	{
+		srcWindow->camera->UpdateDolly(offsety);
+	}
 }
 
 void seca::viewer::Window::WindowSizeCallback(GLFWwindow* window, int width, int height)
@@ -172,6 +170,7 @@ void seca::viewer::Window::WindowSizeCallback(GLFWwindow* window, int width, int
 	SECA_CONSOLE_INFO("resize window : {} x {}", width, height);
 
 	srcWindow->camera->Resize(width, height);
+	srcWindow->setWindowSize(width, height);
 }
 
 void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const char** paths)
