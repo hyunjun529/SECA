@@ -41,7 +41,7 @@ seca::viewer::Window::Window()
 	camera->SetPanScale(0.01f);
 	camera->SetDollyStartPosition(-15.0f);
 	camera->SetDollyScale(1.0f);
-	camera->SetTrackballScale(0.1f);
+	camera->SetTrackballScale(0.025f);
 	camera->SetRotation(
 		glm::angleAxis(glm::degrees(135.0f), glm::vec3(1.0f, 0.0f, 0.0f))
 		* glm::angleAxis(glm::degrees(0.75f), glm::vec3(0.0f, 1.0f, 0.0f))
@@ -230,10 +230,10 @@ void seca::viewer::Window::SetDropCallback(GLFWwindow * window, int count, const
 		srcWindow->m_characters.push_back(added_character);
 		srcWindow->render->LoadObject(srcWindow->m_characters.back().object);
 
-		if (extension.compare("obj") != 0)
+		if (extension.compare("obj") != 0 && srcWindow->m_uis.empty())
 		{
 			ui::ControlCharacterAnimationUI *ui_contorl_character_animation = new ui::ControlCharacterAnimationUI();
-			ui_contorl_character_animation->m_character = &srcWindow->m_characters.back();
+			ui_contorl_character_animation->m_character = &srcWindow->m_characters.back(); // pointer error
 			srcWindow->m_uis.push_back(ui_contorl_character_animation);
 		}
 	}
