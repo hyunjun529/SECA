@@ -43,8 +43,8 @@ namespace seca
 
 
 		private:
-			int m_window_size_width = 1280;
-			int m_window_size_height = 1024;
+			int m_window_size_width = 1028;
+			int m_window_size_height = 768;
 
 			GLFWwindow *m_window;
 

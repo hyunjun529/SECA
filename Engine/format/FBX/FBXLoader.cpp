@@ -25,20 +25,23 @@ seca::render::Object seca::format::FBXLoader::LoadFBX(const char *_file)
 		exit(-1);
 	}
 
-	FbxScene* lScene = FbxScene::Create(lSdkManager, "myScene");
+	FbxScene *lScene = FbxScene::Create(lSdkManager, "myScene");
 
 	lImporter->Import(lScene);
 
+	// change axis : Z up, RightHanded
 	// https://help.autodesk.com/cloudhelp/2018/ENU/FBX-Developer-Help/cpp_ref/class_fbx_axis_system.html
-	FbxAxisSystem OurAxisSystem(FbxAxisSystem::eZAxis, FbxAxisSystem::eParityOdd, FbxAxisSystem::eRightHanded);
-	OurAxisSystem.ConvertScene(lScene);
+	FbxAxisSystem before_axis = lScene->GetGlobalSettings().GetAxisSystem();
+	//FbxAxisSystem OurAxisSystem(FbxAxisSystem::eZAxis, FbxAxisSystem::eParityOdd, FbxAxisSystem::eRightHanded);
+	//OurAxisSystem.ConvertScene(lScene);
+	FbxAxisSystem::MayaZUp.ConvertScene(lScene);
+	before_axis = lScene->GetGlobalSettings().GetAxisSystem();
 
 	// split mesh per material for submesh
 	// https://forums.autodesk.com/t5/fbx-forum/how-can-i-determine-mesh-and-sub-mesh/td-p/4227676
 	FbxGeometryConverter converter(lSdkManager);
 	converter.Triangulate(lScene, true);
 	converter.SplitMeshesPerMaterial(lScene, true);
-
 
 	lImporter->Destroy();
 
@@ -72,32 +75,6 @@ seca::render::Object seca::format::FBXLoader::LoadFBX(const char *_file)
 		object.textures.insert(std::make_pair(texture_name, texture));
 		object.subMeshes[i].texname = texture_name;
 	}
-	
-
-	//// Texture
-	//for (int lTextureIndex = 0; lTextureIndex < lTextureCount; ++lTextureIndex)
-	//{
-	//	render::Object::Texture texture;
-	//	std::string texture_name = "";
-
-	//	FbxTexture *lTexture = lScene->GetTexture(lTextureIndex);
-	//	FbxFileTexture *lFileTexture = FbxCast<FbxFileTexture>(lTexture);
-
-	//	const FbxString lAbsFbxFileName = FbxPathUtils::Resolve(_file);
-	//	const FbxString lAbsFolderName = FbxPathUtils::GetFolderName(lAbsFbxFileName);
-
-	//	// find relative texture path
-	//	const FbxString lResolvedFileName = FbxPathUtils::Bind(lAbsFolderName, lFileTexture->GetRelativeFileName());
-	//	texture.image = stbi_load(lResolvedFileName, &texture.w, &texture.h, &texture.comp, STBI_default);
-
-	//	// find absolute texture path
-
-	//	// not found
-
-	//	texture_name = lFileTexture->GetRelativeFileName();
-
-	//	object.textures.insert(std::make_pair(texture_name, texture));
-	//}
 
 
 	// make object great again
@@ -119,14 +96,6 @@ void seca::format::FBXLoader::TraverseFBXNodes(FbxNode* node)
 	const char* nodeName = node->GetName();
 	printf("node name: %s\n", nodeName);
 
-	// Get da transforms
-	FbxDouble3 translation = node->LclTranslation.Get();
-	FbxDouble3 rotation = node->LclRotation.Get();
-	FbxDouble3 scaling = node->LclScaling.Get();
-
-	FbxLayerElementArrayTemplate<int>* lMaterialIndice = NULL;
-	FbxGeometryElement::EMappingMode lMaterialMappingMode = FbxGeometryElement::eNone;
-
 	// Determine # of children the node has
 	int numChildren = node->GetChildCount();
 	FbxNode* childNode = 0;
@@ -142,7 +111,6 @@ void seca::format::FBXLoader::TraverseFBXNodes(FbxNode* node)
 			bool has_normal = mesh->GetElementNormalCount() > 0;
 			bool has_uv = mesh->GetElementUVCount() > 0;
 
-
 			// Vertex position
 			std::vector<glm::vec3> tmp_vertex;
 			tmp_vertex.resize(num_polygon);
@@ -156,23 +124,25 @@ void seca::format::FBXLoader::TraverseFBXNodes(FbxNode* node)
 			std::vector<glm::vec2> tmp_uv;
 			tmp_uv.resize(num_polygon);
 
+
 			for(int i = 0; i < num_polygon; i++)
 			{
 				for (int j = 0; j < 3; j++)
 				{
 					int idx = mesh->GetPolygonVertex(i, j);
 					FbxVector4 vertex_position = mesh->GetControlPointAt(idx);
+					// TODO : not access directly mData, use FbxAxisSystem and mul with sign
 					tmp_vertex[i].x = (GLfloat)vertex_position.mData[0];
-					tmp_vertex[i].y = (GLfloat)vertex_position.mData[1];
-					tmp_vertex[i].z = (GLfloat)vertex_position.mData[2];
+					tmp_vertex[i].y = (GLfloat)vertex_position.mData[2];
+					tmp_vertex[i].z =  - (GLfloat)vertex_position.mData[1];
 
 					if (has_normal)
 					{
 						FbxVector4 vertex_normal;
 						mesh->GetPolygonVertexNormal(i, j, vertex_normal);
 						tmp_normal[i].x = (GLfloat)vertex_normal.mData[0];
-						tmp_normal[i].y = (GLfloat)vertex_normal.mData[1];
-						tmp_normal[i].z = (GLfloat)vertex_normal.mData[2];
+						tmp_normal[i].y = (GLfloat)vertex_normal.mData[2];
+						tmp_normal[i].z = - (GLfloat)vertex_normal.mData[1];
 					}
 
 					if (has_uv)
@@ -232,10 +202,6 @@ void seca::format::FBXLoader::TraverseFBXNodes(FbxNode* node)
 						tmp_uv[i].x = tmp_uv[i].x;
 						tmp_uv[i].y = abs(1.0f - tmp_uv[i].y);
 
-						//float for_swap = tmp_uv[i].x;
-						//tmp_uv[i].x = tmp_uv[i].y;
-						//tmp_uv[i].y = for_swap;
-
 						object.bufferUV.push_back(tmp_uv[i]);
 					}
 				}
@@ -243,8 +209,6 @@ void seca::format::FBXLoader::TraverseFBXNodes(FbxNode* node)
 
 
 			// Create SubMesh
-			// We have Texture, but not each material
-			// we need grouped vertex each materials
 			FbxLayerElementArrayTemplate<int>* materialIndices;
 			FbxGeometryElement::EMappingMode materialMappingMode = FbxGeometryElement::eNone;
 			if (mesh->GetElementMaterial())
@@ -278,10 +242,6 @@ void seca::format::FBXLoader::TraverseFBXNodes(FbxNode* node)
 								{
 									object.subMeshes.push_back(sm);
 
-									//if (materials.size() > 0)
-									//{
-									//	sm.texname = materials[material_id].diffuse_texname;
-									//}
 									sm.idxBegin += sm.cntVertex;
 									sm.cntVertex = 3;
 
@@ -304,10 +264,6 @@ void seca::format::FBXLoader::TraverseFBXNodes(FbxNode* node)
 						sm.texname = "";
 
 						object.subMeshes[0].cntVertex = num_polygon * 3;
-
-						//sm.cntVertex = num_polygon * 3;
-
-						//object.subMeshes.push_back(sm);
 					}
 					break;
 
